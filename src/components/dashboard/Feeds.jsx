@@ -11,31 +11,31 @@ import {
 
 const FeedData = [
   {
-    title: "Cras justo odio",
+    title: "Staff Of Forestry Commision",
     icon: "bi bi-bell",
     color: "primary",
     date: "6 minute ago",
   },
   {
-    title: "New user registered.",
+    title: "Request Made by Staffs.",
     icon: "bi bi-person",
     color: "info",
     date: "6 minute ago",
   },
   {
-    title: "Server #1 overloaded.",
+    title: "Admistrators in ICT department.",
     icon: "bi bi-hdd",
     color: "danger",
     date: "6 minute ago",
   },
   {
-    title: "New order received.",
+    title: "New Request Recieved.",
     icon: "bi bi-bag-check",
     color: "success",
     date: "6 minute ago",
   },
   {
-    title: "Cras justo odio",
+    title: "The system is user friendly",
     icon: "bi bi-bell",
     color: "dark",
     date: "6 minute ago",
@@ -61,7 +61,6 @@ const Feeds = () => {
             <ListGroupItem
               key={index}
               action
-              href="/"
               tag="a"
               className="d-flex align-items-center p-3 border-0"
             >

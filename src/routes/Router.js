@@ -1,6 +1,5 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
-// import Login from "../components/dashboard/Login.js";
 
 /****Layouts*****/
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
@@ -8,37 +7,48 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"));
 /***** Pages ****/
 
 const Starter = lazy(() => import("../views/Starter.js"));
-const About = lazy(() => import("../views/About.js"));
+// const Issues =lazy(() => import("../views/ui/IssueForm"));
+const Requests =lazy(() => import("../views/ui/Request"));
+const Issues = lazy(() => import("../views/ui/Issues"));
+
 const Alerts = lazy(() => import("../views/ui/Alerts"));
 const Badges = lazy(() => import("../views/ui/Badges"));
-const Buttons = lazy(() => import("../views/ui/Buttons"));
-const Cards = lazy(() => import("../views/ui/Cards"));
+const Attach =lazy(() => import("../views/ui/Attach.file"));
 const Grid = lazy(() => import("../views/ui/Grid"));
-const Tables = lazy(() => import("../views/ui/Tables"));
-const Forms = lazy(() => import("../views/ui/Forms"));
+
 const Breadcrumbs = lazy(() => import("../views/ui/Breadcrumbs"));
 const Login =lazy(() => import("../views/ui/Login"));
-const Change =lazy(() => import("../views/ui/update.form"));
+const Send =lazy(() => import("../views/ui/report.sms"));
+const Details =lazy(() => import("../views/ui/request.details"));
+const View =lazy(() => import("../views/ui/View.assign"));
+
+
 
 /*****Routes******/
 
 const ThemeRoutes = [
   {
     path: "/",
-    element: <FullLayout />,
+    element: <FullLayout/>,
     children: [
-      { path: "/" , exact:true, element: <Navigate to="/starter" /> },
-      { path: "/starter", exact: true, element: <Starter /> },
-      { path: "/about", exact: true, element: <About /> },
+      { path: "/" , exact:true, element: <Navigate to="/login" /> },
+      { path: "/dashboard", exact: true, element: <Starter /> },
+      { path: "/issues", exact: true, element: <Issues/> },
+      { path: "/requests", exact:true, element: <Requests/> },
+      // { path: "/reports", exact: true, element: <Report/> },
+
+
       { path: "/alerts", exact: true, element: <Alerts /> },
-      { path: "/change", exact: true, element: <Change/> },
-      { path: "/badges", exact: true, element: <Badges /> },
-      { path: "/buttons", exact: true, element: <Buttons /> },
-      { path: "/cards", exact: true, element: <Cards /> },
-      { path: "/grid", exact: true, element: <Grid /> },
-      { path: "/table", exact: true, element: <Tables /> },
-      { path: "/forms", exact: true, element: <Forms /> },
-      { path: "/breadcrumbs", exact: true, element: <Breadcrumbs /> },
+      { path: "/attach", exact: true, element: <Attach/> },
+      { path: "/badges", exact: true, element: <Badges/> },
+      { path: "/grid", exact: true, element: <Grid/>},
+      
+      { path: "/send", exact: true, element: <Send/> },
+      
+     
+      { path: "/details", exact: true, element: <Details/> },
+      { path: "/view", exact: true, element: <View/> },
+      { path: "/breadcrumbs", exact: true, element: <Breadcrumbs/>},
     ],
   },
   {

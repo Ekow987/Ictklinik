@@ -1,10 +1,10 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet} from "react-router-dom";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import { Container } from "reactstrap";
 // import { useEffect } from "react";
 
-const FullLayout = ({children}) => {
+const FullLayout = () => {
   
   // const navigate = useNavigate()
   // useEffect(()=>{
@@ -29,10 +29,12 @@ const FullLayout = ({children}) => {
           </Container>
         </div>
       </div>
-      {children}
+    
     </main>
    
   );
 };
 
 export default FullLayout;
+
+

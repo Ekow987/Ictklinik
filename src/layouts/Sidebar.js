@@ -4,29 +4,23 @@ import { Link, useLocation } from "react-router-dom";
 const navigation = [
   {
     title: "Dashboard",
-    href: "/starter",
+    href: "/dashboard",
     icon: "bi bi-speedometer2",
   },
   
   {
-    title: "Make Request",
-    href: "/forms",
-    icon: "bi bi-textarea-resize",
-  },
-  {
-    title: "Request Details",
-    href: "/table",
-    icon: "bi bi-people",
-    
+    title: "Issues",
+    href: "/issues",
+    icon: "bi bi-people", 
   },
   
+  {
+    title: "Requests",
+    href: "#",
+    icon: "bi bi-laptop",
+  },
 
-  {
-    title: "Admin",
-    href: "/about",
-    icon: "bi bi-key",
-  },
-  
+ 
   
 ];
 
@@ -64,15 +58,6 @@ const Sidebar = () => {
               </Link>
             </NavItem>
           ))}
-          <Button
-            color="success"
-            tag="a"
-            target="_blank"
-            className="mt-3"
-            href="#"
-          >
-            Upgrade To Pro
-          </Button>
         </Nav>
       </div>
     </div>
@@ -80,3 +65,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

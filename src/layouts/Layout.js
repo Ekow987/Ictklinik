@@ -1,3 +1,4 @@
+import {useNavigate } from "react-router-dom";
 import {
     Card,
     Row,
@@ -12,6 +13,11 @@ import {
   } from "reactstrap";
   
   const Forms = () => {
+
+   const navigate = useNavigate();
+    const handlePress =()=>{
+      navigate("/pwd");
+    }
   
     return (
       <Row className="push">
@@ -45,8 +51,8 @@ import {
                 />
               </FormGroup>
               <FormGroup>
-                  <Label for="exampleSelect">Division</Label>
-                  <Input id="exampleSelect" name="select" type="select">
+                  <Label for="Select">Division</Label>
+                  <Input id="select" name="select" type="select">
                   <option>Audit Unit</option>
                   <option>Corporate Affairs and Media Relations</option>
                   <option>Climate Change Unit</option>
@@ -92,8 +98,8 @@ import {
                   <Label for="exampleText">Comment</Label>
                   <Input id="exampleText" name="text" type="textarea" />
                 </FormGroup>
-
                 <Button>Submit</Button>
+                <Button id="reset" onClick={handlePress}>Reset Password</Button>
               </Form>
             </CardBody>
           </Card>
@@ -102,5 +108,7 @@ import {
     );
   };
   
+  
   export default Forms;
+
   

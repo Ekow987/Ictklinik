@@ -11,7 +11,7 @@ const ProjectTables = () => {
             Details Of Request Status
           </CardTitle>
           <CardBody className="">
-            <Table bordered>
+            <Table responsive>
               <thead>
                 <tr>
                   <th>#</th>

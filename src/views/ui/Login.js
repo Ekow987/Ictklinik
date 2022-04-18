@@ -1,9 +1,14 @@
 import React from "react";
 import {Button,Form,FormGroup,Input,Label} from 'reactstrap';
 import Logo from "../../assets/images/logos/logo12.jpg";
-import {Link}  from "react-router-dom";
+import {useNavigate}  from "react-router-dom";
 
 export default function Login (){
+  const navigate =useNavigate();
+
+  const handlePress =()=>{
+    navigate("/dashboard")
+  }
 
   return(
     <div className="App">
@@ -35,7 +40,7 @@ export default function Login (){
           placeholder="********"
         />
       </FormGroup>
-   <Button><Link to="/starter">Login</Link></Button> 
+   <Button onClick={handlePress}>Login</Button> 
   </Form>
 </div>
 
