@@ -1,0 +1,14 @@
+{
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript]": {
+		"editor.formatOnPaste": true,
+		"editor.formatOnSave": true
+	},
+	"endOfLine": "crlf",
+	"semi": false,
+	"singleQuote": false,
+	"tabWidth": 4,
+	"useTabs": true,
+	"trailingComma": "none",
+	"arrowParens": "avoid"
+}
