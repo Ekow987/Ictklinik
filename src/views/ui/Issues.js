@@ -15,6 +15,7 @@ const Issues = () => {
     <div>
     <section>
     <Container>
+      <div>
     <Row>
     <Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
     <DashboardCards title="Total Issues" text={100} />
@@ -29,6 +30,7 @@ const Issues = () => {
     <DashboardCards title="Resolved Rate" text={100} />
     </Col>
     </Row>
+    </div>
     </Container>
     </section>
   

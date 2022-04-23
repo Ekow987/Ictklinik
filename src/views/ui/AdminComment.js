@@ -10,7 +10,7 @@ import Axios from "axios";
 export default function Example() {
   const [show, setShow] = useState(false);
   const [values,setValues] =useState({
-    resolveComment:""
+    adminComment:""
   })
 
   const handleComment =(e)=>{
@@ -22,13 +22,13 @@ export default function Example() {
 
   const clearForms = () => {
     setValues({
-      resolveComment:""
+      adminComment:""
     });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!values.resolveComment) {
+    if (!values.adminComment) {
       toast('All fields are required');
       return;
     }
@@ -73,7 +73,7 @@ export default function Example() {
               controlId="Enter Name"
             >
               <Form.Label>Comment</Form.Label>
-              <Form.Control as="textarea" rows={3} name="resolveComment" value={values.resolveComment} onChange={handleComment}/>
+              <Form.Control as="textarea" rows={3} name="adminComment" value={values.adminComment} onChange={handleComment}/>
             </Form.Group>
           </Form>
         </Modal.Body>

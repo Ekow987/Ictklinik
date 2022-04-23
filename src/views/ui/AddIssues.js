@@ -1,66 +1,85 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import toast, { Toaster } from 'react-hot-toast';
-import {Input} from  "reactstrap";
+import toast, { Toaster } from "react-hot-toast";
+import { Input, Label, FormGroup } from "reactstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Axios from "axios";
 
+
 export default function AddIssues() {
   const [show, setShow] = useState(false);
   const [values, setValues] = useState({
-    issuer: "",
+    type:"",
     description: "",
   });
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
+ 
 
   const handleIssuerChange = (e) => {
-    setValues(values=>({
+    setValues((values) => ({
       ...values,
-      [e.target.name]:e.target.value
-    }))
+      [e.target.name]: e.target.value,
+    }));
   };
 
-  console.log(values)
-
+  console.log(values);
 
   const clearForms = () => {
     setValues({
-      issuer: "",
+      type:"",
       description: "",
     });
   };
 
+ 
+  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!values.issuer) {
-      toast('All fields are required');
+    if (!values.type || !values.description) {
+      toast("All fields are required");
       return;
     }
 
-   try {
-     
-    let result = await Axios({
-      method: "POST",
-      url: "http://localhost:5000/api/v1/issues/add/",
-      data: values,
-    });
-    console.log(result.data);
-    setValues(result.data);
-     
-   } catch (error) {
-    console.log(error);
-   }
-   toast('Issue Added Succussfully');
-    clearForms();
+    if(values.type || values.description){
+      toast("Issue Added Successfully");
+    }
+
+    try {
+      let result = await Axios({
+        method: "POST",
+        url: "http://localhost:5000/api/v1/issues/add/",
+        data: values,
+      });
+      console.log(result.data);
+      setValues(result.data);
+    } catch (error) {
+      console.log(error);
+    }
     
+    await clearForms();
+   
+    handleClose();
+    
+   refreshPage();
+    
+   
+  
   };
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  
 
   return (
     <>
       <Button variant="primary" onClick={handleShow} id="push">
-        Add New Issues
+        New Issues
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -69,21 +88,25 @@ export default function AddIssues() {
         </Modal.Header>
         <Modal.Body>
           <Form>
+            <FormGroup>
+              <Label for="exampleSelect">Issue Type</Label>
+              <Input id="exampleSelect" name="type" type="select" value={values.type} onChange={handleIssuerChange}>
+                <option>Printing Issue</option>
+                <option>Internet Issue</option>
+                {/* <option>3</option>
+                <option>4</option>
+                <option>5</option> */}
+              </Input>
+            </FormGroup>
+
             <Form.Group className="mb-3">
-              <Form.Label>Reporter</Form.Label>
-              <Input
-                  value={values.issuer}
-                  onChange={handleIssuerChange}
-                  name="issuer"
-                  placeholder="Name Of Issuer"
-                  type="text"
-                />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-            >
               <Form.Label>Description</Form.Label>
-              <Input  name="description" type="textarea" value={values.description} onChange={handleIssuerChange}/>
+              <Input
+                name="description"
+                type="textarea"
+                value={values.description}
+                onChange={handleIssuerChange}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -94,112 +117,11 @@ export default function AddIssues() {
           <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
-          <Toaster/>
+          <Toaster />
         </Modal.Footer>
       </Modal>
     </>
   );
 }
 
-// import { useNavigate } from "react-router-dom";
-// import {
-//     Card,
-//     Row,
-//     Col,
-//     CardTitle,
-//     CardBody,
-//     Button,
-//     Form,
-//     FormGroup,
-//     Label,
-//     Input
-//   } from "reactstrap";
 
-//   const Forms = () => {
-//     const navigate = useNavigate();
-
-//     const handlePress =()=>{
-//         navigate("/cards")
-//     }
-//     return (
-//       <Row className="push">
-//         <Col>
-//           {/* --------------------------------------------------------------------------------*/}
-//           {/* Card-1*/}
-//           {/* --------------------------------------------------------------------------------*/}
-//           <Card>
-//             <CardTitle tag="h6" className="border-bottom p-3 mb-0">
-//               <i className="bi bi-bell me-2"> </i>
-//               CHANGE USER ROLE
-//             </CardTitle>
-//             <CardBody>
-//               <Form>
-//               <FormGroup>
-//                 <Label for="exampleEmail">Staff ID</Label>
-//                 <Input
-//                   id="exampleEmail"
-//                   name="email"
-//                   placeholder="Enter Staff ID"
-//                   type="number"
-//                 />
-//               </FormGroup>
-//               <FormGroup>
-//                 <Label for="examplePassword">Staff Name</Label>
-//                 <Input
-//                   id="examplePassword"
-//                   name="password"
-//                   placeholder="Staff Name"
-//                   type="text"
-//                 />
-//               </FormGroup>
-//               <FormGroup>
-//                   <Label for="exampleSelect">Division</Label>
-//                   <Input id="exampleSelect" name="select" type="select">
-//                   <option>Audit Unit</option>
-//                   <option>Corporate Affairs and Media Relations</option>
-//                   <option>Climate Change Unit</option>
-//                   <option>Chief Executive's Office</option>
-//                   <option>Corporate Planning Monitoring and Evaluation</option>
-//                   <option>Estate Unit</option>
-//                   <option>Finance and Administration Department</option>
-//                   <option>Forestry Commission Headquarters</option>
-//                   <option>Forestry Commission Training Centre</option>
-//                   <option>Forest Services Division</option>
-//                   <option>Human Resource Department</option>
-//                   <option>Information and Communication Technology Department</option>
-//                   <option>Procurement Unit</option>
-//                   <option>Plantations Department</option>
-//                   <option>Resource Management Support Centre</option>
-//                   <option>Stores Unit</option>
-//                   <option>Timber Industry Development Division</option>
-//                   <option>Timber Rights and Administration Unit</option>
-//                   <option>Transport Unit</option>
-//                   <option>Timber Validation Department</option>
-//                   <option>Wildlife Division</option>
-//                   </Input>
-//                 </FormGroup>
-//                 <FormGroup>
-//                   <Label for="examplePassword">Old password</Label>
-//                   <Input
-//                     id="examplePassword"
-//                     name="password"
-//                     placeholder="Enter password"
-//                     type="text"
-//                   />
-//                 </FormGroup>
-//                 <FormGroup>
-//                   <Label for="exampleText">New Password</Label>
-//                   <Input id="exampleText" name="new password" type="password" placeholder="Enter password" />
-//                 </FormGroup>
-
-//                 <Button>Submit</Button>
-//                 <Button id="reset" onClick={handlePress}>Cancel</Button>
-//               </Form>
-//             </CardBody>
-//           </Card>
-//         </Col>
-//       </Row>
-//     );
-//   };
-
-//   export default Forms;

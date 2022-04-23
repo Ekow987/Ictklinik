@@ -2,11 +2,11 @@ import { Button, Nav, NavItem } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 
 const navigation = [
-  {
-    title: "Dashboard",
-    href: "/dashboard",
-    icon: "bi bi-speedometer2",
-  },
+  // {
+  //   title: "Dashboard",
+  //   href: "/dashboard",
+  //   icon: "bi bi-speedometer2",
+  // },
   
   {
     title: "Issues",
@@ -18,6 +18,12 @@ const navigation = [
     title: "Requests",
     href: "#",
     icon: "bi bi-laptop",
+  },
+
+  {
+    title: "Settings",
+    href: "#",
+    icon: "bi bi-gear",
   },
 
  
