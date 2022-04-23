@@ -25,7 +25,29 @@ export default function Login() {
 		setState({ ...state, [name]: value.trim() })
 	}
 
-	const handlePress = () => {
+	const handlePress = e => {
+		var myHeaders = new Headers()
+		myHeaders.append("Content-Type", "application/json")
+
+		var raw = JSON.stringify({
+			username: state.username,
+			password: md5(state.password)
+		})
+
+		var requestOptions = {
+			method: "GET",
+			headers: myHeaders,
+			body: raw,
+			redirect: "follow"
+		}
+
+		fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
+			.then(response => response.text())
+			.then(result => {
+				console.log(result)
+			})
+			.catch(error => console.log("error", error))
+
 		navigate("/issues")
 	}
 	// const handleLogin = async () => {
