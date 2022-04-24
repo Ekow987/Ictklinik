@@ -32,7 +32,7 @@ export default function Login() {
 
 		var raw = JSON.stringify({
 			username: state.username,
-			password: md5(state.password)
+			password: (state.password)
 		})
 
 		var requestOptions = {
