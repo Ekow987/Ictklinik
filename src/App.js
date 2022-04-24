@@ -6,10 +6,10 @@ const App = () => {
 
 	return (
 		<Context.Provider
-			value={{
-				isLoggedIn: isLoggedIn,
-				userObject: userObject
-			}}
+		// value={{
+		// 	isLoggedIn: isLoggedIn,
+		// 	userObject: userObject
+		// }}
 		>
 			<div className="dark">{routing}</div>
 		</Context.Provider>
