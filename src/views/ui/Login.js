@@ -26,6 +26,7 @@ export default function Login() {
 	}
 
 	const handlePress = e => {
+		e.preventDefault()
 		var myHeaders = new Headers()
 		myHeaders.append("Content-Type", "application/json")
 
@@ -41,14 +42,19 @@ export default function Login() {
 			redirect: "follow"
 		}
 
-		fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
-			.then(response => response.text())
-			.then(result => {
-				console.log(result)
-			})
-			.catch(error => console.log("error", error))
-
-		navigate("/issues")
+		try {
+			fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
+				.then(response => response.text())
+				.then(result => {
+					/**
+					 *further processesmay come in */
+					console.log(result)
+					result && result.code === 200 ? navigate("/issues") : null
+				})
+				.catch(error => console.log("error", error))
+		} catch (error) {
+			console.log("error", error)
+		}
 	}
 	// const handleLogin = async () => {
 	// try {
