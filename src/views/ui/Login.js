@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import Logo from "../../assets/images/logos/logo12.jpg"
 import { useNavigate } from "react-router-dom"
@@ -44,10 +44,11 @@ export default function Login() {
 
 		try {
 			fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
-				.then(response => response.text())
+				.then(response => response.json())
 				.then(result => {
 					/**
-					 *further processesmay come in */
+					 *further processes may come in
+					 */
 					console.log(result)
 					result && result.code === 200 ? navigate("/issues") : null
 				})
