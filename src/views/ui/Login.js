@@ -1,24 +1,20 @@
 import React, { useState } from "react"
 import { Button, Form, FormGroup, Input, Label } from "reactstrap"
 import Logo from "../../assets/images/logos/logo12.jpg"
-import { useNavigate } from "react-router-dom"
+ import { useNavigate } from "react-router-dom"
 import Signup from "./Signup"
+import md5 from "md5";
+import ForgetPassword from "./ForgetPassword"
+
 // import Axios from "axios";
 
 export default function Login() {
-	const navigate = useNavigate()
+	 const navigate = useNavigate()
 	const [state, setState] = useState({
 		username: "",
 		password: ""
 	})
-	// const [loginError, setLoginError] = useState(false);
 
-	// const handleChange = (e) => {
-	//   setStaff((values) => ({
-	//     ...values,
-	//     [e.target.name]: e.target.values,
-	//   }));
-	// };
 
 	const handleState = e => {
 		const { name, value } = e.target
@@ -32,66 +28,36 @@ export default function Login() {
 
 		var raw = JSON.stringify({
 			username: state.username,
-			password: (state.password)
+			password: md5(state.password)
 		})
-
+           
 		var requestOptions = {
-			method: "GET",
+			method: "POST",
 			headers: myHeaders,
 			body: raw,
 			redirect: "follow"
 		}
-
-		try {
-			fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
+                  
+		 try {
+			 fetch("http://localhost:5000/api/v1/users/login/", requestOptions)
 				.then(response => response.json())
 				.then(result => {
 					/**
 					 *further processes may come in
 					 */
+					if(result.code == 200){
+						localStorage.setItem("userObject",JSON.stringify(result.data))
+					  navigate("/issues");
+					}
 					console.log(result)
-					result && result.code === 200 ? navigate("/issues") : null
+					// result && result.code === 200 ? navigate("/issues") : null
 				})
 				.catch(error => console.log("error", error))
 		} catch (error) {
 			console.log("error", error)
 		}
 	}
-	// const handleLogin = async () => {
-	// try {
-	//     setLoginError(false);
-	//     let res = await Axios({
-	//       method:"POST",
-	//       url:"",
-	//       data:staff
-	//     });
-
-	//     const { message, data } = res.data;
-	//    if (message === "User does not exist") {
-	//        console.log("User does not exist")
-	//        setLoginError(true);
-	//        return;
-	//    }
-
-	//      if (data) {
-	//         setStaff(data);
-	//         switch(data.role){
-	//            case 1:
-	//              "do something"
-	//              break
-	//              case 2:
-	//                "do something"
-	//                break
-	//                case 3:
-	//                  "do something"
-	//                  default:
-	//                  break
-	//         }
-
-	//   }
-	// }catch (error) {
-	//   console.log(error);
-	// }
+	
 
 	return (
 		<div className="App">
@@ -106,7 +72,6 @@ export default function Login() {
 			></img>
 			<Form className="form">
 				<FormGroup className="search-wrap">
-					{/* isInvalid={loginError} */}
 					<Label for="staff-id">Staff Id</Label>
 					<Input
 						id="staff-id"
@@ -114,7 +79,7 @@ export default function Login() {
 						onChange={handleState}
 						type="text"
 						name="username"
-						placeholder="Enter Staff Id"
+						placeholder="Enter Staff ID"
 						required
 					/>
 				</FormGroup>
@@ -130,7 +95,9 @@ export default function Login() {
 					/>
 				</FormGroup>
 				<Button onClick={handlePress}>Login</Button>
-				<Signup />
+			       <br/>
+				<ForgetPassword/>
+				<Signup/>
 			</Form>
 		</div>
 	)

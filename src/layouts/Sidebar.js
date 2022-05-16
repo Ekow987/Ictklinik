@@ -15,9 +15,14 @@ const navigation = [
   },
   
   {
-    title: "Requests",
-    href: "#",
+    title: "Request Devices",
+    href: "/request-devices",
     icon: "bi bi-laptop",
+  },
+  {
+    title: "Request Training",
+    href: "/request-training",
+    icon: "bi bi-mortarboard-fill",
   },
 
   {

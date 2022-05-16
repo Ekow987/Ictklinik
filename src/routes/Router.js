@@ -10,6 +10,8 @@ const FullLayout = lazy(() => import("../layouts/FullLayout.js"))
 const Issues = lazy(() => import("../views/ui/Issues"))
 
 const Login = lazy(() => import("../views/ui/Login"))
+const RequestDevices = lazy(() => import("../views/ui/RequestDevices"))
+const RequestTraining = lazy(() => import("../views/ui/RequestTraining"))
 
 /*****Routes******/
 
@@ -19,7 +21,11 @@ const ThemeRoutes = [
 		element: <FullLayout />,
 		children: [
 			{ path: "/", exact: true, element: <Navigate to="/login" /> },
-			{ path: "/issues", exact: true, element: <Issues /> }
+			{ path: "/issues", exact: true, element: <Issues /> },
+			{ path: "/request-devices", exact: true, element: <RequestDevices/> },
+			{ path: "/request-training", exact: true, element: <RequestTraining/> }
+
+
 
 			// { path: "/reports", exact: true, element: <Report/> },
 		]

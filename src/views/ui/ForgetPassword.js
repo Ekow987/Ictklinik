@@ -1,140 +1,96 @@
-import React,{useState} from "react";
-import toast, { Toaster } from 'react-hot-toast';
+import React, { useState } from "react"
+import toast, { Toaster } from "react-hot-toast"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
-import Axios from "axios";
-
-
-
+import { FormGroup, Label, Input, Badge } from "reactstrap"
 export default function Example() {
-  const [show, setShow] = useState(false);
-  const [values,setValues] =useState({
-    issuerComment:""
-  })
+	const [show, setShow] = useState(false)
+	const handleClose = () => setShow(false)
+	const handleShow = () => setShow(true)
+	const [passwordField, setPasswordField] = useState(false)
+	const [staffId, setStaffId] = useState("")
+	const [checkPayload, setCheckPayload] = useState({})
+	const [state, setState] = useState({
+		password:"",
+		newPassword:"",
+		code:""
+	})
 
-  const handleComment =(e)=>{
-    setValues(values=>({
-      ...values,
-      [e.target.name]:e.target.value
-    }))
-  }
+	const handleState = e => {
+		const { name, value } = e.target
+		setState({ ...state, [name]: value.trim() })
+	}
 
-  const clearForms = () => {
-    setValues({
-      issuerComment:""
-    });
-  };
+	const handleStaffId = e => {
+		e.preventDefault()
+		setStaffId(e.target.value.trim())
+		setPasswordField(false)
+	}
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!values.issuerComment) {
-      toast('All fields are required');
-      return;
-    }
-
-   try {
-     
-    let result = await Axios({
-      method: "POST",
-      url: "http://localhost:5000/api/v1/issues/add/",
-      data: values,
-    });
-    console.log(result.data);
-    setValues(result.data);
-     
-   } catch (error) {
-    console.log(error);
-   }
-   toast('Comment Submitted Succussfully');
-    clearForms();
-    
-  };
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
-  return (
-    <>
-      <Button variant="warning" onClick={handleShow}>
-        Comment
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>ADD COMMENT</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            
-            <Form.Group
-              className="mb-3"
-              controlId="Enter Name"
-            >
-              <Form.Label>Comment</Form.Label>
-              <Form.Control as="textarea" rows={3} name="issuerComment" value={values.issuerComment} onChange={handleComment}/>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
-          </Button>
-          <Toaster/>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+	return (
+		<>
+			<Badge onClick={handleShow} id="forgetPwd">Forget Password</Badge>
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>Reset Password</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Form>
+						<FormGroup>
+							<Label for="exampleEmail">Staff ID</Label>
+							<Input
+								name="staffId"
+								placeholder="Enter Staff ID"
+								type="number"
+							/>
+						</FormGroup>
+						<FormGroup>
+							<Label for="old password">Old Password</Label>
+							<Input
+								name="password"
+								placeholder="Enter Old Password "
+								type="number"
+								onChange={handleState}
+								required
+							/>
+						</FormGroup>
+					</Form>
+					<Form>
+						<FormGroup>
+							<Label for="old password">New Password</Label>
+							<Input
+								name="newPassword"
+								placeholder="Enter New Password "
+								type="number"
+								onChange={handleState}
+								required
+							/>
+						</FormGroup>
+					</Form>
+					<Form>
+						<FormGroup>
+							<Label for="old password">
+								Enter Verification Code
+							</Label>
+							<Input
+								name="password"
+								placeholder="Enter Code "
+								type="number"
+								onChange={handleState}
+								required
+							/>
+						</FormGroup>
+					</Form>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="primary">Reset</Button>
+					<Toaster />
+				</Modal.Footer>
+			</Modal>
+		</>
+	)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useNavigate } from "react-router-dom";
 // import {
@@ -149,7 +105,7 @@ export default function Example() {
 //     Label,
 //     Input
 //   } from "reactstrap";
-  
+
 //   const Forms = () => {
 //     const navigate = useNavigate();
 
@@ -236,6 +192,5 @@ export default function Example() {
 //       </Row>
 //     );
 //   };
-  
+
 //   export default Forms;
-  

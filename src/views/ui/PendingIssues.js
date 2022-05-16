@@ -1,106 +1,69 @@
-import React, { useState, useEffect } from "react";
-import { DataGrid } from "@mui/x-data-grid";
-import Assign from "./AssignUser";
-import AdminComment from "./AdminComment";
+import React, { useState, useEffect } from "react"
+import { DataGrid } from "@mui/x-data-grid"
+import {user as UserColumns, officer as OfficerColumns, director as DirectorColumns, manager as ManagerColumns, admin as AdminColumns,super as SuperColumns} from "./DataColumns"
 
-
-const columns = [
-  { field: "description", headerName: "Description",width:300},
-  { field: "issuer", headerName: "Issuer", width: 130 },
-  { field: "createdAt", headerName: "Created At", width: 200 },
-  { field: "type", headerName: "Issue Type", width: 200 },
-  { field: "assignedBy", headerName: "Assign By", width: 200 },
-  { field: "assignedAt", headerName: "Assigned At", width: 200 },
-  { field: "taskDescription", headerName: "Task Description", width: 300 },
-  { field: "assignedTo", headerName: "Assigned To", width: 200 },
-  { field: "adminComment", headerName: "Admin Remarks", width: 200 },
-  { field: "status", headerName: "Status", width: 160 },
-
-   {
-      headerName: "Action",
-      sortable: false,
-      width: 300,
-      renderCell: () => (
-        <>
-        <span style={{ display: "flex" }}>
-          <div>
-            <Assign/>
-          </div>
-          <div>
-          <AdminComment/>
-          </div>
-          <i class="bi bi-trash-fill"></i>
-        </span>
-        </>
-      )
-    },
- 
-  
-  // {
-  //   field: 'age',
-  //   headerName: 'Age',
-  //   type: 'number',
-  //   width: 90,
-  // },
-
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  // },
-  
-
-  // {
-  //   field: "action",
-  //   headerName: "Action",
-  //   sortable: false,
-  //   width: 160,
-  //   renderCell: () => (
-  //     <span style={{ display: "flex" }}>
-  //       <Button variant="contained" color="secondary">
-  //         Del
-  //       </Button>
-  //     </span>
-  //   )
-  // },
-];
-
+const userObject = JSON.parse(localStorage.getItem("userObject"))
 
 export default function PendingIssues() {
-  const [data, setData] = useState("");
+	const [data, setData] = useState({})
+  const [columns,setColumns] = useState([])
 
-  const getData = async () => {
-    try {
-      let result = await fetch("http://localhost:5000/api/v1/issues", {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+	const getData = async () => {
+	
 
-      const response = await result.json();
-      // console.log(result)
-      setData(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+		let url 
+    switch (userObject.type) {
+			case "user":
+         url = `http://localhost:5000/api/v1/issues/user-issues/${userObject.staffId}`
+         setColumns(UserColumns)
+				break
+			case "officer":
+        url = `http://localhost:5000/api/v1/issues/technician-issues/${userObject.staffId}`
+        setColumns(OfficerColumns)
+				break
+			case "director":
+				url =``
+				// setColumns(DirectorColumns)
+				break
+			case "manager":
+                 url = ``
+				//  setColumns(ManagerColumns)
+				break
+			case "admin":
+				url = ``
+				// setColumns(AdminColumns)
+				break
+			case "superuser":
+				url=``
+				// setColumns(SuperColumns)
+				break
+		}
+		try {
+			let result = await fetch(url, {
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
 
-  useEffect(() => {
-    getData();
-  }, []);
-  return (
-    <div style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
-    </div>
-  );
+			const response = await result.json()
+		   response.data?	setData(response.data):setData([])
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	useEffect(() => {
+		getData()
+	}, [])
+	return (
+		<div style={{ height: 400, width: "100%" }}>
+			<DataGrid
+				rows={data}
+				columns={columns}
+				pageSize={5}
+				rowsPerPageOptions={[5]}
+				checkboxSelection
+			/>
+		</div>
+	)
 }

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import toast, { Toaster } from "react-hot-toast";
-import { Input, Label, FormGroup } from "reactstrap";
+import { Input, Label, FormGroup,Card } from "reactstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Axios from "axios";
-
+const userObject = JSON.parse(localStorage.getItem("userObject"))
 
 export default function AddIssues() {
   const [show, setShow] = useState(false);
@@ -44,20 +44,26 @@ export default function AddIssues() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!values.type || !values.description) {
-      toast("All fields are required");
-      return;
-    }
+    // if (!values.type || !values.description) {
+    //   toast("All fields are required");
+    //   return;
+    // }
 
-    if(values.type || values.description){
-      toast("Issue Added Successfully");
-    }
+    // if(values.type || values.description){
+    //   toast("Issue Added Successfully");
+    // }
+    let dataToUpload = {
 
+      description:values.description,
+      type:values.type,
+      issuer:userObject.staffId,
+      
+  }
     try {
       let result = await Axios({
-        method: "POST",
-        url: "http://localhost:5000/api/v1/issues/add/",
-        data: values,
+        method:"POST",
+        url:"http://localhost:5000/api/v1/issues/add/",
+        data:dataToUpload,
       });
       console.log(result.data);
       setValues(result.data);
@@ -77,8 +83,9 @@ export default function AddIssues() {
   
 
   return (
-    <>
-      <Button variant="primary" onClick={handleShow} id="push">
+    <div id="move">
+       <Card body>
+      <Button variant="primary" onClick={handleShow}>
         New Issues
       </Button>
 
@@ -111,16 +118,15 @@ export default function AddIssues() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
+         
           <Button variant="primary" onClick={handleSubmit}>
             Save Changes
           </Button>
           <Toaster />
         </Modal.Footer>
       </Modal>
-    </>
+      </Card>
+    </div>
   );
 }
 
