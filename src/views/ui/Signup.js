@@ -19,8 +19,7 @@ export default function Signup() {
 		confirmPassword: "",
 		code: ""
 	})
-    
-	
+
 	const handleState = e => {
 		const { name, value } = e.target
 		setState({ ...state, [name]: value.trim() })
@@ -129,7 +128,6 @@ export default function Signup() {
 		}
 		setCheckPayload({})
 	}
-
 	return (
 		<div>
 			<Button variant="primary" onClick={handleShow} id="btn">
@@ -139,7 +137,6 @@ export default function Signup() {
 				<Modal.Header closeButton>
 					<Modal.Title>User Registration</Modal.Title>
 				</Modal.Header>
-
 				<Modal.Body>
 					<>
 						{passwordField ? (

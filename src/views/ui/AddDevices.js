@@ -18,7 +18,6 @@ export default function AddDevices() {
 			method: "GET",
 			headers: myHeaders
 		}
-
 		try {
 			fetch("http://localhost:5000/api/v1/devices/")
 				.then(response => response.json())

@@ -16,7 +16,8 @@ export default function AddIssues() {
   
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
+  
+ 
   function refreshPage() {
     window.location.reload(false);
   }
@@ -39,25 +40,14 @@ export default function AddIssues() {
     });
   };
 
- 
-  
-
+                        
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!values.type || !values.description) {
-    //   toast("All fields are required");
-    //   return;
-    // }
-
-    // if(values.type || values.description){
-    //   toast("Issue Added Successfully");
-    // }
     let dataToUpload = {
 
       description:values.description,
       type:values.type,
-      issuer:userObject.staffId,
-      
+      issuer:userObject.staffId,  
   }
     try {
       let result = await Axios({
@@ -88,7 +78,7 @@ export default function AddIssues() {
       <Button variant="primary" onClick={handleShow}>
         New Issues
       </Button>
-
+      
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add New issues</Modal.Title>

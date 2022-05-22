@@ -5,12 +5,25 @@ import {user as UserColumns, officer as OfficerColumns, director as DirectorColu
 const userObject = JSON.parse(localStorage.getItem("userObject"))
 
 export default function PendingIssues() {
-	const [data, setData] = useState({})
-  const [columns,setColumns] = useState([])
+const [data, setData] = useState({})
+const [columns,setColumns] = useState([])
+
+
 
 	const getData = async () => {
 	
-
+    // useEffect(()=>{
+	// 	async function getUser(){
+	// 		let result = Axios({
+	// 			method:"GET",
+	// 			url:"http://localhost:5000/api/v1/issues",
+	// 			data:raw
+	// 		})
+	// 		console.log(result.data)
+	// 		setUserData(result.data)
+	// 	}
+	// 	getUser()
+	// },[])
 		let url 
     switch (userObject.type) {
 			case "user":
@@ -22,19 +35,19 @@ export default function PendingIssues() {
         setColumns(OfficerColumns)
 				break
 			case "director":
-				url =``
+				url =`http://localhost:5000/api/v1/issues/${userObject.staffId}`
 				// setColumns(DirectorColumns)
 				break
 			case "manager":
-                 url = ``
+                 url = `http://localhost:5000/api/v1/issues/${userObject.staffId}`
 				//  setColumns(ManagerColumns)
 				break
 			case "admin":
-				url = ``
+				url = `http://localhost:5000/api/v1/issues/${userObject.staffId}`
 				// setColumns(AdminColumns)
 				break
 			case "superuser":
-				url=``
+				url=`http://localhost:5000/api/v1/issues/${userObject.staffId}`
 				// setColumns(SuperColumns)
 				break
 		}

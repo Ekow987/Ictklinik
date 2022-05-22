@@ -32,6 +32,7 @@ export const superUser = [
 
 ]
 
+
 export const manager = [
 	{ field: "description", headerName: "Description", width: 300 },
 	{ field: "issuer", headerName: "Issuer", width: 130 },
@@ -131,3 +132,4 @@ export const user = [
 	{ field: "status", headerName: "Status"},
 
 ]
+
