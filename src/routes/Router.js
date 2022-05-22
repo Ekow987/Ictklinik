@@ -5,13 +5,10 @@ import { Navigate } from "react-router-dom"
 const FullLayout = lazy(() => import("../layouts/FullLayout.js"))
 
 /***** Pages ****/
-
-// const Issues =lazy(() => import("../views/ui/IssueForm"));
 const Issues = lazy(() => import("../views/ui/Issues"))
-
 const Login = lazy(() => import("../views/ui/Login"))
-const RequestDevices = lazy(() => import("../views/ui/RequestDevices"))
-const RequestTraining = lazy(() => import("../views/ui/RequestTraining"))
+const Devices = lazy(() => import("../views/ui/Devices"))
+const Training = lazy(() => import("../views/ui/Trainings"))
 
 /*****Routes******/
 
@@ -21,11 +18,31 @@ const ThemeRoutes = [
 		element: <FullLayout />,
 		children: [
 			{ path: "/", exact: true, element: <Navigate to="/login" /> },
-			{ path: "/issues", exact: true, element: <Issues /> },
-			{ path: "/request-devices", exact: true, element: <RequestDevices/> },
-			{ path: "/request-training", exact: true, element: <RequestTraining/> }
-
-
+			{
+				path: "/issues",
+				exact: true,
+				element: <Issues />
+			},
+			{
+				path: "/devices",
+				exact: true,
+				element: <Devices />
+			},
+			{
+				path: "/training",
+				exact: true,
+				element: <Training />
+			},
+			{
+				path: "/request-training",
+				exact: true,
+				element: <Training />
+			},
+			{
+				path: "/request-training",
+				exact: true,
+				element: <Training />
+			}
 
 			// { path: "/reports", exact: true, element: <Report/> },
 		]

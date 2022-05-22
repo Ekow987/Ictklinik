@@ -19,8 +19,7 @@ export default function Signup() {
 		confirmPassword: "",
 		code: ""
 	})
-    
-	
+
 	const handleState = e => {
 		const { name, value } = e.target
 		setState({ ...state, [name]: value.trim() })

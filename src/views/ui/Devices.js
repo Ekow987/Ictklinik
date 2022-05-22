@@ -1,37 +1,43 @@
-import  React,{useState} from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-const columns = [
-  { field: "device_name", headerName: "Name" },
-	{ field: "device_type", headerName: "Devices Type" },
-  { field: "device_status", headerName: "Status" },
-  { field: "device_specification", headerName: "Specification" },
-	{ field: "createdAt", headerName: "Created At", }
-];
+import React from "react"
+import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap"
+import DashboardCards from "./Card"
+import PendingDevices from "./DevicesDisplay"
+import AddDevices from "./AddDevices"
 
+export default function RequestDevices() {
+	return (
+		<>
+			<Container>
+				<Row>
+					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<DashboardCards title="Total Devices" text={50} />
+					</Col>
+					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<DashboardCards title="Pending Devices" text={70} />
+					</Col>
+					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
+						<DashboardCards title="Given Out" text={30} />
+					</Col>
+				</Row>
+			</Container>
 
-
-
-export default function DataTable() {
-  const [data, setData] = useState({})
-  
-  return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        disableSelectionOnClick
-      />
-    </div>
-  );
+			<Container>
+				<Row>
+					<AddDevices />
+				</Row>
+				<Row>
+					<Col>
+						<Card>
+							<CardHeader className="bg-primary text-white">
+								Pending Devices Requests
+							</CardHeader>
+							<CardBody>
+								<PendingDevices />
+							</CardBody>
+						</Card>
+					</Col>
+				</Row>
+			</Container>
+		</>
+	)
 }
-
-
-
-
-
-
-
-
-
