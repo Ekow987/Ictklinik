@@ -6,11 +6,11 @@ import {
 	director as DirectorColumns,
 	manager as ManagerColumns,
 	superUser as SuperColumns
-} from "./DevicesDataColumns"
+} from "./IssuesListColumns"
 
 const userObject = JSON.parse(localStorage.getItem("userObject"))
 
-export default function DataTable() {
+export default function IssuesList() {
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 
@@ -18,23 +18,23 @@ export default function DataTable() {
 		let url
 		switch (userObject.type) {
 			case "user":
-				url = `http://localhost:5000/api/v1/devices-requests/user-requests/${userObject.staffId}`
+				url = `http://localhost:5000/api/v1/issues/user-issues/${userObject.staffId}`
 				setColumns(UserColumns)
 				break
 			case "officer":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `http://localhost:5000/api/v1/issues/technician-issues/${userObject.staffId}`
 				setColumns(OfficerColumns)
 				break
 			case "director":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `http://localhost:5000/api/v1/issues/`
 				setColumns(DirectorColumns)
 				break
 			case "manager":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `http://localhost:5000/api/v1/issues/`
 				setColumns(ManagerColumns)
 				break
 			case "superuser":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `http://localhost:5000/api/v1/issues/`
 				setColumns(SuperColumns)
 				break
 		}
@@ -44,7 +44,6 @@ export default function DataTable() {
 					"Content-Type": "application/json"
 				}
 			})
-
 			const response = await result.json()
 			response.data ? setData(response.data) : setData([])
 		} catch (error) {
@@ -55,7 +54,6 @@ export default function DataTable() {
 	useEffect(() => {
 		getData()
 	}, [1])
-
 	return (
 		<div style={{ height: 400, width: "100%" }}>
 			<DataGrid rows={data} columns={columns} rowsPerPageOptions={[6]} />

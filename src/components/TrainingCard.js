@@ -1,13 +1,10 @@
 import {
+	Button,
 	Card,
-	CardText,
 	CardBody,
-	CardTitle,
-	CardGroup,
 	CardImg,
-	Row,
-	Col,
-	Button
+	CardText,
+	CardTitle
 } from "reactstrap"
 
 export default function TrainingCard() {

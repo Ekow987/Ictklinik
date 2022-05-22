@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react"
+import Axios from "axios"
+import React, { useEffect, useState } from "react"
+import { Form, Modal } from "react-bootstrap"
 import {
+	Button,
 	Card,
 	CardBody,
 	CardHeader,
@@ -8,13 +11,10 @@ import {
 	FormGroup,
 	Input,
 	Label,
-	Row,
-	Button
+	Row
 } from "reactstrap"
 import DashboardCards from "../../components/Card"
-import DivicesList from "./DevicesDisplay"
-import { Modal, Form } from "react-bootstrap"
-import Axios from "axios"
+import DivicesList from "./DevicesList"
 
 export default function RequestDevices() {
 	const [show, setShow] = useState(false)
@@ -167,7 +167,7 @@ export default function RequestDevices() {
 								onChange={handleChange}
 							>
 								<option value="">Select Device </option>
-								{devices.map((value, index) => {
+								{/* {devices.map((value, index) => {
 									return (
 										<option
 											key={index}
@@ -176,7 +176,7 @@ export default function RequestDevices() {
 											{value.device_name}
 										</option>
 									)
-								})}
+								})} */}
 							</Input>
 						</FormGroup>
 						<FormGroup>

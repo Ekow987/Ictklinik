@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react"
-import {
-	Col,
-	Container,
-	Row,
-	Card,
-	CardHeader,
-	CardBody,
-	CardFooter
-} from "reactstrap"
+import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap"
 import TrainingCard from "../../components/TrainingCard"
 export default function RequestTraining() {
 	const [trainingList, setTrainingList] = useState({})

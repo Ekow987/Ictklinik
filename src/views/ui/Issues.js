@@ -15,7 +15,7 @@ import {
 	Row
 } from "reactstrap"
 import DashboardCards from "../../components/Card"
-import IssueList from "./IssuesDisplay"
+import IssuesList from "./IssuesList"
 
 const Issues = () => {
 	const userObject = JSON.parse(localStorage.getItem("userObject"))
@@ -124,7 +124,7 @@ const Issues = () => {
 								Pending Issues
 							</CardHeader>
 							<CardBody>
-								<IssueList />
+								<IssuesList />
 							</CardBody>
 						</Card>
 					</Col>
