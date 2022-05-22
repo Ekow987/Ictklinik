@@ -95,9 +95,9 @@ export default function RequestDevices() {
 				console.log(
 					"%cData: ",
 					"background:purple; color:white; border-radius:20px",
-					result.data
+					result.data.data
 				)
-				setDevices(result.data)
+				setDevices(result.data.data)
 			} else {
 			}
 
@@ -167,7 +167,7 @@ export default function RequestDevices() {
 								onChange={handleChange}
 							>
 								<option value="">Select Device </option>
-								{/* {devices.map((value, index) => {
+								{devices.map((value, index) => {
 									return (
 										<option
 											key={index}
@@ -176,7 +176,7 @@ export default function RequestDevices() {
 											{value.device_name}
 										</option>
 									)
-								})} */}
+								})}
 							</Input>
 						</FormGroup>
 						<FormGroup>
