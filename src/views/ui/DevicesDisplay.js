@@ -11,7 +11,7 @@ import {
 const userObject = JSON.parse(localStorage.getItem("userObject"))
 
 export default function DataTable() {
-	const [data, setData] = useState({})
+	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 
 	const getData = async () => {
@@ -58,7 +58,7 @@ export default function DataTable() {
 
 	return (
 		<div style={{ height: 400, width: "100%" }}>
-			<DataGrid rows={data} columns={columns} pageSize={5} />
+			<DataGrid rows={data} columns={columns} rowsPerPageOptions={[6]} />
 		</div>
 	)
 }

@@ -1,28 +1,40 @@
-import React from "react";
-import { Col, Container, Row } from "reactstrap";
-import TrainingCards from "./TrainingCards";
-export default function RequestTraining (){
+import React, { useEffect, useState } from "react"
+import {
+	Col,
+	Container,
+	Row,
+	Card,
+	CardHeader,
+	CardBody,
+	CardFooter
+} from "reactstrap"
+import TrainingCard from "../../components/TrainingCard"
+export default function RequestTraining() {
+	const [trainingList, setTrainingList] = useState({})
 
-    return(
-      <div>
-           <section>
-        <Container>
-          <div>
-            <Row>
-              <Col className="col-xl-10 col-lg-10 col-md-6 col-sm-10" >
-                <TrainingCards title="Training" text="Request for ict training" />
-              </Col>
-              {/* <Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <TrainingCards title="Training" text="Request for ict training" />
-              </Col>
-              <Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-                <TrainingCards title="Training" text="Request for ict training" />
-              </Col> */}
-            </Row>
-          </div>
-        </Container>
-      </section>
+	const getTrainingList = () => {}
 
-      </div>
-    );
+	useEffect(() => {
+		getTrainingList()
+	}, [1])
+	return (
+		<Container>
+			<Row>
+				<Col className="col-xl-9 col-lg-9 col-md-6 col-sm-10">
+					<TrainingCard
+						title="Training"
+						text="Request for ict training"
+					/>
+				</Col>
+				<Col className="col-xl-3 col-lg-3 col-md-6 col-sm-10">
+					<Card>
+						<CardHeader className="bg-secondary text-white">
+							Customise
+						</CardHeader>
+						<CardBody></CardBody>
+					</Card>
+				</Col>
+			</Row>
+		</Container>
+	)
 }

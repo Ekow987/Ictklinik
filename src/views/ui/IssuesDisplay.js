@@ -10,8 +10,8 @@ import {
 
 const userObject = JSON.parse(localStorage.getItem("userObject"))
 
-export default function PendingIssues() {
-	const [data, setData] = useState({})
+export default function IssueList() {
+	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 
 	const getData = async () => {
@@ -44,7 +44,6 @@ export default function PendingIssues() {
 					"Content-Type": "application/json"
 				}
 			})
-
 			const response = await result.json()
 			response.data ? setData(response.data) : setData([])
 		} catch (error) {
@@ -57,12 +56,7 @@ export default function PendingIssues() {
 	}, [1])
 	return (
 		<div style={{ height: 400, width: "100%" }}>
-			<DataGrid
-				rows={data}
-				columns={columns}
-				pageSize={5}
-				rowsPerPageOptions={[5]}
-			/>
+			<DataGrid rows={data} columns={columns} rowsPerPageOptions={[6]} />
 		</div>
 	)
 }

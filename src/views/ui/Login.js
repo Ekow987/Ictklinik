@@ -15,8 +15,6 @@ import Modal from "react-bootstrap/Modal"
 
 import Logo from "../../assets/images/logos/logo12.jpg"
 import ForgetPassword from "./ForgetPassword"
-import { toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
 export default function Login() {
 	const navigate = useNavigate()
 	const baseUrl = process.env.REACT_APP_SERVER
@@ -82,7 +80,6 @@ export default function Login() {
 			clearForms()
 			handleClose()
 		} else {
-			toast("Passwords do not match")
 		}
 	}
 
@@ -150,15 +147,6 @@ export default function Login() {
 					 *further processes may come in
 					 */
 					if (result.code === 200) {
-						toast.success("🦄 Wow so easy!", {
-							position: "top-right",
-							autoClose: 5000,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined
-						})
 					}
 				})
 				.catch(error => console.log("error", error))

@@ -1,141 +1,87 @@
-import React,{useState} from "react";
+import React, { useState } from "react"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
-import toast, { Toaster } from 'react-hot-toast';
 import Modal from "react-bootstrap/Modal"
-import Axios from "axios";
-
-
+import Axios from "axios"
 
 export default function Example() {
-  const [show, setShow] = useState(false);
-  const [values,setValues] =useState({
-    adminComment:""
-  })
+	const [show, setShow] = useState(false)
+	const [values, setValues] = useState({
+		adminComment: ""
+	})
 
-  const handleComment =(e)=>{
-    setValues(values=>({
-      ...values,
-      [e.target.name]:e.target.value
-    }))
-  }
+	const handleComment = e => {
+		setValues(values => ({
+			...values,
+			[e.target.name]: e.target.value
+		}))
+	}
 
-  const clearForms = () => {
-    setValues({
-      adminComment:""
-    });
-  };
+	const clearForms = () => {
+		setValues({
+			adminComment: ""
+		})
+	}
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!values.adminComment) {
-      toast('All fields are required');
-      return;
-    }
+	const handleSubmit = async e => {
+		e.preventDefault()
+		if (!values.adminComment) {
+			return
+		}
 
+		try {
+			let result = await Axios({
+				method: "POST",
+				url: "http://localhost:5000/api/v1/issues/add/",
+				data: values
+			})
+			console.log(result.data)
+			setValues(result.data)
+		} catch (error) {
+			console.log(error)
+		}
+		clearForms()
+	}
 
-   try {
-     
-    let result = await Axios({
-      method: "POST",
-      url: "http://localhost:5000/api/v1/issues/add/",
-      data: values,
-    });
-    console.log(result.data);
-    setValues(result.data);
-     
-   } catch (error) {
-    console.log(error);
-   }
-   toast('Comment Submitted Succussfully');
-    clearForms();
-    
-  };
+	const handleClose = () => setShow(false)
+	const handleShow = () => setShow(true)
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+	return (
+		<>
+			<Button variant="warning" onClick={handleShow}>
+				Comment
+			</Button>
 
-  return (
-    <>
-      <Button variant="warning" onClick={handleShow}>
-        Comment
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>ADD COMMENT</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            
-            <Form.Group
-              className="mb-3"
-              controlId="Enter Name"
-            >
-              <Form.Label>Comment</Form.Label>
-              <Form.Control as="textarea" rows={3} name="adminComment" value={values.adminComment} onChange={handleComment}/>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleSubmit}>
-            Save Changes
-          </Button>
-          <Toaster/>
-        </Modal.Footer>
-      </Modal>
-    </>
-  );
+			<Modal show={show} onHide={handleClose}>
+				<Modal.Header closeButton>
+					<Modal.Title>ADD COMMENT</Modal.Title>
+				</Modal.Header>
+				<Modal.Body>
+					<Form>
+						<Form.Group className="mb-3" controlId="Enter Name">
+							<Form.Label>Comment</Form.Label>
+							<Form.Control
+								as="textarea"
+								rows={3}
+								name="adminComment"
+								value={values.adminComment}
+								onChange={handleComment}
+							/>
+						</Form.Group>
+					</Form>
+				</Modal.Body>
+				<Modal.Footer>
+					<Button variant="secondary" onClick={handleClose}>
+						Close
+					</Button>
+					<Button variant="primary" onClick={handleSubmit}>
+						Save Changes
+					</Button>
+				</Modal.Footer>
+			</Modal>
+		</>
+	)
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // import { useNavigate } from "react-router-dom";
 // import {
@@ -150,7 +96,7 @@ export default function Example() {
 //     Label,
 //     Input
 //   } from "reactstrap";
-  
+
 //   const Forms = () => {
 //     const navigate = useNavigate();
 
@@ -237,6 +183,5 @@ export default function Example() {
 //       </Row>
 //     );
 //   };
-  
+
 //   export default Forms;
-  

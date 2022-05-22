@@ -1,5 +1,4 @@
 import React, { useState } from "react"
-import toast, { Toaster } from "react-hot-toast"
 import Form from "react-bootstrap/Form"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
@@ -12,9 +11,9 @@ export default function Example() {
 	const [staffId, setStaffId] = useState("")
 	const [checkPayload, setCheckPayload] = useState({})
 	const [state, setState] = useState({
-		password:"",
-		newPassword:"",
-		code:""
+		password: "",
+		newPassword: "",
+		code: ""
 	})
 
 	const handleState = e => {
@@ -30,7 +29,9 @@ export default function Example() {
 
 	return (
 		<>
-			<Badge onClick={handleShow} id="forgetPwd">Forget Password</Badge>
+			<Badge onClick={handleShow} id="forgetPwd">
+				Forget Password
+			</Badge>
 			<Modal show={show} onHide={handleClose}>
 				<Modal.Header closeButton>
 					<Modal.Title>Reset Password</Modal.Title>
@@ -85,7 +86,6 @@ export default function Example() {
 				</Modal.Body>
 				<Modal.Footer>
 					<Button variant="primary">Reset</Button>
-					<Toaster />
 				</Modal.Footer>
 			</Modal>
 		</>

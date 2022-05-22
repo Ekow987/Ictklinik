@@ -5,12 +5,7 @@ const App = () => {
 	const routing = useRoutes(Themeroutes)
 
 	return (
-		<Context.Provider
-		// value={{
-		// 	isLoggedIn: isLoggedIn,
-		// 	userObject: userObject
-		// }}
-		>
+		<Context.Provider>
 			<div className="dark">{routing}</div>
 		</Context.Provider>
 	)
