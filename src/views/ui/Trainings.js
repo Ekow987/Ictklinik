@@ -113,16 +113,17 @@ export default function RequestTraining() {
 			{/* <Row> */}
 			{/* <Col className="col-xl-9 col-lg-9 col-md-6 col-sm-10"> */}
 			<div className="row row-cols-1 row-cols-md-3 g-4">
-					{trainingList.map((value, index) => {
-						return (
-							<TrainingCard
-								key={index}
-								title={value.trainingName}
-								text={value.description}
-								image={value.image}
-							/>
-						)
-					})}
+				{trainingList.map((value, index) => {
+					return (
+						<TrainingCard
+							key={index}
+							title={value.trainingName}
+							text={value.description}
+							image={value.image}
+							data={value}
+						/>
+					)
+				})}
 			</div>
 			{/* </Col> */}
 			{/* </Row> */}

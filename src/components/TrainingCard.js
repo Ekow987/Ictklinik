@@ -10,16 +10,19 @@ import {
 export default function TrainingCard({ image, title, text, data }) {
 	return (
 		<Card id="cardChange">
-			<CardImg
-				alt="Card image cap"
-				src="https://yakimaparks.com/assets/microsoftexcel-1.jpg"
-				top
-				width="100%"
-			/>
+			<CardImg alt="Card image cap" src={image} top width="100%" />
 			<CardBody>
 				<CardTitle tag="h5">{title}</CardTitle>
 				<CardText>{text}</CardText>
-				<Button id={data?.id}>Request</Button>
+				{data.comment ? (
+					<Button className="btn-sm btn-dark" id={data?.requestId}>
+						subscribed
+					</Button>
+				) : (
+					<Button className="btn-sm btn-success" id={data?.id}>
+						Request
+					</Button>
+				)}
 			</CardBody>
 		</Card>
 	)
