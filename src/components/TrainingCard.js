@@ -7,7 +7,7 @@ import {
 	CardTitle
 } from "reactstrap"
 
-export default function TrainingCard() {
+export default function TrainingCard({ image, title, text, data }) {
 	return (
 		<Card id="cardChange">
 			<CardImg
@@ -17,9 +17,9 @@ export default function TrainingCard() {
 				width="100%"
 			/>
 			<CardBody>
-				<CardTitle tag="h5">Training Description</CardTitle>
-				<CardText>Excel Training</CardText>
-				<Button>Request</Button>
+				<CardTitle tag="h5">{title}</CardTitle>
+				<CardText>{text}</CardText>
+				<Button id={data?.id}>Request</Button>
 			</CardBody>
 		</Card>
 	)

@@ -9,6 +9,7 @@ import {
 } from "./DevicesListColumns"
 
 const userObject = JSON.parse(localStorage.getItem("userObject"))
+const baseUrl = process.env.REACT_APP_SERVER
 
 export default function DataTable() {
 	const [data, setData] = useState([])
@@ -18,23 +19,23 @@ export default function DataTable() {
 		let url
 		switch (userObject.type) {
 			case "user":
-				url = `http://localhost:5000/api/v1/devices-requests/user-requests/${userObject.staffId}`
+				url = `${baseUrl}/api/v1/devices-requests/user-requests/${userObject.staffId}`
 				setColumns(UserColumns)
 				break
 			case "officer":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `${baseUrl}/api/v1/devices-requests/`
 				setColumns(OfficerColumns)
 				break
 			case "director":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `${baseUrl}/api/v1/devices-requests/`
 				setColumns(DirectorColumns)
 				break
 			case "manager":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `${baseUrl}/api/v1/devices-requests/`
 				setColumns(ManagerColumns)
 				break
 			case "superuser":
-				url = `http://localhost:5000/api/v1/devices-requests/`
+				url = `${baseUrl}/api/v1/devices-requests/`
 				setColumns(SuperColumns)
 				break
 		}
