@@ -1,13 +1,6 @@
+import Axios from "axios"
 import React, { useEffect, useState } from "react"
-import {
-	Card,
-	CardBody,
-	CardGroup,
-	CardHeader,
-	Col,
-	Container,
-	Row
-} from "reactstrap"
+import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap"
 import TrainingCard from "../../components/TrainingCard"
 export default function RequestTraining() {
 	const [trainingList, setTrainingList] = useState([])
@@ -39,6 +32,32 @@ export default function RequestTraining() {
 			)
 			const response = await result.json()
 			response.data ? setTrainingList(response.data) : setTrainingList([])
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	const onClick = async e => {
+		let dataToUpload = {
+			comment: "Not applicable", //don't leave the comment empty
+			code: e.target.id,
+			user: userObject.staffId
+		}
+		try {
+			let result = await Axios({
+				method: "POST",
+				url: `${baseUrl}/api/v1/trainings-requests/add/`,
+				data: dataToUpload
+			})
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	const onDelete = async e => {
+		try {
+			let result = await Axios({
+				method: "POST",
+				url: `${baseUrl}/api/v1/trainings-requests/delete/${e.target.id}`
+			})
 		} catch (error) {
 			console.log(error)
 		}
@@ -121,6 +140,8 @@ export default function RequestTraining() {
 							text={value.description}
 							image={value.image}
 							data={value}
+							subscribe={onClick}
+							unsubscribe={onDelete}
 						/>
 					)
 				})}
