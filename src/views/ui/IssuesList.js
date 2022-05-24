@@ -6,11 +6,11 @@ import {
 	director as DirectorColumns,
 	manager as ManagerColumns,
 	superUser as SuperColumns
-} from "./IssuesDataColumns"
+} from "./IssuesListColumns"
 
 const userObject = JSON.parse(localStorage.getItem("userObject"))
 
-export default function IssueList() {
+export default function IssuesList() {
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
 

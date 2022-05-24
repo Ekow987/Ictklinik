@@ -23,12 +23,6 @@ const navigation = [
 		title: "Request Training",
 		href: "/training",
 		icon: "bi bi-mortarboard-fill"
-	},
-
-	{
-		title: "Settings",
-		href: "#",
-		icon: "bi bi-gear"
 	}
 ]
 

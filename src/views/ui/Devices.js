@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react"
+import Axios from "axios"
+import React, { useEffect, useState } from "react"
+import { Form, Modal } from "react-bootstrap"
 import {
+	Button,
 	Card,
 	CardBody,
 	CardHeader,
@@ -8,13 +11,10 @@ import {
 	FormGroup,
 	Input,
 	Label,
-	Row,
-	Button
+	Row
 } from "reactstrap"
 import DashboardCards from "../../components/Card"
-import DivicesList from "./DevicesDisplay"
-import { Modal, Form } from "react-bootstrap"
-import Axios from "axios"
+import DivicesList from "./DevicesList"
 
 export default function RequestDevices() {
 	const [show, setShow] = useState(false)
@@ -95,9 +95,9 @@ export default function RequestDevices() {
 				console.log(
 					"%cData: ",
 					"background:purple; color:white; border-radius:20px",
-					result.data
+					result.data.data
 				)
-				setDevices(result.data)
+				setDevices(result.data.data)
 			} else {
 			}
 
