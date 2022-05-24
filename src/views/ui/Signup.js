@@ -1,10 +1,7 @@
 import React, { useState } from "react"
 import Button from "react-bootstrap/Button"
 import Modal from "react-bootstrap/Modal"
-import Form from "react-bootstrap/Form"
-import { toast } from "react-toastify"
 import md5 from "md5"
-import "react-toastify/dist/ReactToastify.css"
 
 export default function Signup() {
 	const [show, setShow] = useState(false)
@@ -39,9 +36,7 @@ export default function Signup() {
 			registerUser()
 			clearForms()
 			handleClose()
-			toast.success("Passwords match")
 		} else {
-			toast.error("Passwords do not match")
 		}
 	}
 
@@ -111,15 +106,6 @@ export default function Signup() {
 					 *further processes may come in
 					 */
 					if (result.code === 200) {
-						toast.success("🦄 Wow so easy!", {
-							position: "top-right",
-							autoClose: 5000,
-							hideProgressBar: false,
-							closeOnClick: true,
-							pauseOnHover: true,
-							draggable: true,
-							progress: undefined
-						})
 					}
 				})
 				.catch(error => console.log("error", error))
