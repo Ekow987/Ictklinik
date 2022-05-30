@@ -1,7 +1,7 @@
 import Axios from "axios"
 import React, { useEffect, useState } from "react"
 import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap"
-import TrainingCard from "../../components/TrainingCard"
+import TrainingCard from "../../../components/TrainingCard"
 export default function RequestTraining() {
 	const [trainingList, setTrainingList] = useState([])
 	const userObject = JSON.parse(localStorage.getItem("userObject"))

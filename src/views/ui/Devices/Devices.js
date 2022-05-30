@@ -1,5 +1,5 @@
 import Axios from "axios"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { Form, Modal } from "react-bootstrap"
 import {
 	Button,
@@ -13,9 +13,9 @@ import {
 	Label,
 	Row
 } from "reactstrap"
-import DashboardCards from "../../components/Card"
+import DevicesStatistics from "./DevicesStatistics"
 import DivicesList from "./DevicesList"
-
+import { AppContext } from "../../../components/Context/AppContext"
 export default function RequestDevices() {
 	const [show, setShow] = useState(false)
 	const handleClose = () => setShow(false)
@@ -26,8 +26,10 @@ export default function RequestDevices() {
 		code: "",
 		quantity: ""
 	})
-	const userObject = JSON.parse(localStorage.getItem("userObject"))
-	const baseUrl = process.env.REACT_APP_SERVER
+	const context = useContext(AppContext)
+	const userObject = context.user
+	const baseUrl = context.baseUrl
+
 	const handleChange = e => {
 		console.log(
 			"%cName: ",
@@ -78,8 +80,6 @@ export default function RequestDevices() {
 				refreshPage()
 			} else {
 			}
-
-			// result && result.code === 200 ? navigate("/issues") : null
 		} catch (error) {
 			console.log("error", error)
 		}
@@ -100,8 +100,6 @@ export default function RequestDevices() {
 				setDevices(result.data.data)
 			} else {
 			}
-
-			// result && result.code === 200 ? navigate("/issues") : null
 		} catch (error) {
 			console.log("error", error)
 		}
@@ -112,35 +110,22 @@ export default function RequestDevices() {
 	}, [1])
 	return (
 		<>
-			<Container>
-				<Row>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Total Devices" text={50} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Pending Devices" text={70} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Given Out" text={30} />
-					</Col>
-				</Row>
-			</Container>
-
+			<DevicesStatistics />
 			<Container>
 				<Row className="mb-3">
 					<Col className="col-lg-3">
 						<Button
-							className="btn btn-primary"
+							className="btn btn-success"
 							onClick={handleShow}
 						>
-							New Device Request
+							Add New Request
 						</Button>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
 						<Card>
-							<CardHeader className="bg-dark text-white">
+							<CardHeader className="bg-success text-white">
 								Pending Devices Requests
 							</CardHeader>
 							<CardBody>

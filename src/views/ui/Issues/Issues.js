@@ -14,9 +14,8 @@ import {
 	Label,
 	Row
 } from "reactstrap"
-import DashboardCards from "../../components/Card"
 import IssuesList from "./IssuesList"
-
+import IssuesStatistics from "./IssuesStatistics"
 const Issues = () => {
 	const userObject = JSON.parse(localStorage.getItem("userObject"))
 	const baseUrl = process.env.REACT_APP_SERVER
@@ -75,23 +74,7 @@ const Issues = () => {
 	}
 	return (
 		<>
-			<Container>
-				<Row>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Total Issues" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Pending" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Resolved" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Rate" text={100} />
-					</Col>
-				</Row>
-			</Container>
-
+			<IssuesStatistics />
 			<Container>
 				<Row className="mb-3">
 					<Col className="col">
@@ -103,14 +86,12 @@ const Issues = () => {
 						</Button>{" "}
 						<Button
 							className="btn btn-danger mr-2 mt-2"
-							disabled
 							title="Coming Soon"
 						>
 							Pending Issues
 						</Button>{" "}
 						<Button
-							className="btn btn-secondary mr-2 mt-2"
-							disabled
+							className="btn btn-success mr-2 mt-2"
 							title="Coming Soon"
 						>
 							Resolved Issues
@@ -120,7 +101,7 @@ const Issues = () => {
 				<Row>
 					<Col>
 						<Card>
-							<CardHeader className="bg-primary text-white">
+							<CardHeader className="bg-success text-white">
 								Pending Issues
 							</CardHeader>
 							<CardBody>
