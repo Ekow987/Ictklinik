@@ -54,20 +54,18 @@ export const superUser = [
 		headerName: "Action",
 		sortable: false,
 		width: 50,
-		renderCell: params => {
-			return (
-				<Row>
-					<Col>
-						<span style={{ display: "flex" }}>
-							<i
-								className="bi bi-trash-fill text-danger"
-								id={params.row.id}
-							></i>
-						</span>
-					</Col>
-				</Row>
-			)
-		}
+		renderCell: params => (
+			<Row>
+				<Col>
+					<span>
+						<i
+							className="bi bi-trash-fill text-danger"
+							id={params.row.id}
+						></i>
+					</span>
+				</Col>
+			</Row>
+		)
 	}
 ]
 
