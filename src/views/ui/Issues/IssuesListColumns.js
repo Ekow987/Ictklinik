@@ -1,8 +1,9 @@
+import moment from "moment"
 import { Col } from "react-bootstrap"
 import { Row } from "reactstrap"
-import { Axios } from "axios"
-import { baseUrl, getUser } from "../../../services/Auth"
-import moment from "moment"
+import { getUser } from "../../../services/Auth"
+import { officersList } from "../../../services/Helpers"
+console.log("officersList: ", officersList())
 const userObject = getUser()
 
 /**
@@ -15,29 +16,6 @@ const userObject = getUser()
 
 const formatDate = (date, full = true) => {
 	return moment(date).format("DD MMM, YYYY")
-	alert("hi")
-}
-
-const officersList = () => {
-	let response
-	try {
-		let result = Axios({
-			method: "get",
-			url: `${baseUrl}/api/v1/users/get-user-by-type/officer`
-		})
-		if (result.status) {
-			console.log(
-				"%cData: ",
-				"background:purple; color:white; border-radius:20px",
-				result.data
-			)
-			response = result.data
-		} else {
-		}
-	} catch (error) {
-		console.log("error", error)
-	}
-	return response
 }
 
 export const superUser = [
@@ -66,6 +44,9 @@ export const superUser = [
 						</span>
 					)
 					break
+				default:
+					return null
+					break
 			}
 		}
 	},
@@ -87,11 +68,6 @@ export const superUser = [
 				</Row>
 			)
 		}
-	},
-	{
-		headerName: "Created At",
-		width: 150,
-		renderEditCell: params => formatDate(params.row.createdAt)
 	}
 ]
 
