@@ -9,6 +9,7 @@ const Issues = lazy(() => import("../views/ui/Issues"))
 const Login = lazy(() => import("../views/ui/Login"))
 const Devices = lazy(() => import("../views/ui/Devices"))
 const Training = lazy(() => import("../views/ui/Trainings"))
+const Report = lazy(() => import("../views/ui/Report"))
 
 /*****Routes******/
 
@@ -42,9 +43,9 @@ const ThemeRoutes = [
 				path: "/request-training",
 				exact: true,
 				element: <Training />
-			}
+			},
 
-			// { path: "/reports", exact: true, element: <Report/> },
+			{ path: "/reports", exact: true, element: <Report/> },
 		]
 	},
 	{

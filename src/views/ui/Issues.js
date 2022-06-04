@@ -120,7 +120,7 @@ const Issues = () => {
 				<Row>
 					<Col>
 						<Card>
-							<CardHeader className="bg-primary text-white">
+							<CardHeader style={{backgroundColor:"#1bc5bd"}}>
 								Pending Issues
 							</CardHeader>
 							<CardBody>

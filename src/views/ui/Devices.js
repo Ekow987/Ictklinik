@@ -130,6 +130,7 @@ export default function RequestDevices() {
 				<Row className="mb-3">
 					<Col className="col-lg-3">
 						<Button
+						    style={{backgroundColor:"#0000FF"}}
 							className="btn btn-primary"
 							onClick={handleShow}
 						>
@@ -140,8 +141,8 @@ export default function RequestDevices() {
 				<Row>
 					<Col>
 						<Card>
-							<CardHeader className="bg-dark text-white">
-								Pending Devices Requests
+							<CardHeader style={{backgroundColor:"#1bc5bd"}}>
+							Pending Devices Requests
 							</CardHeader>
 							<CardBody>
 								<DivicesList />
@@ -153,7 +154,7 @@ export default function RequestDevices() {
 
 			<Modal show={show} onHide={handleClose}>
 				<Form onSubmit={handleSubmit}>
-					<Modal.Header closeButton>
+					<Modal.Header closeButton className="bg-success text-white">
 						<Modal.Title>Request Device</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
@@ -200,7 +201,7 @@ export default function RequestDevices() {
 					</Modal.Body>
 					<Modal.Footer>
 						<Button
-							variant="primary"
+							variant=""
 							type="submit"
 							onClick={handleShow}
 						>

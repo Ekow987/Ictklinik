@@ -36,7 +36,7 @@ export default function Something() {
 export const superUser = [
 	{ field: "description", headerName: "Description", width: 300 },
 	{ field: "user_fullname", headerName: "Issuer", width: 200  },
-	{ field: "createdAt", headerName: "Created At" },
+	{ field: "createdAt", headerName: "Created At",width: 200 },
 	{ field: "type", headerName: "Issue Type", width: 150 },
 	{ field: "assignedBy", headerName: "Assign By" },
 	{
@@ -168,8 +168,8 @@ export const officer = [
 
 export const user = [
 	{ field: "description", headerName: "Description" , width: 300 },
-	{ field: "issuer", headerName: "Issuer" , width: 200 },
-	{ field: "createdAt", headerName: "Created At" },
-	{ field: "type", headerName: "Issue Type" },
+	{ field: "issuer", headerName: "Issuer" , width:100},
+	{ field: "createdAt", headerName: "Created At", width:200 },
+	{ field: "type", headerName: "Issue Type",width:130 },
 	{ field: "status", headerName: "Status" }
 ]
