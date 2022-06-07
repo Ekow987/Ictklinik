@@ -25,7 +25,7 @@ export default function IssuesList({ officers }) {
 	 * calling the API to reassign issue
 	 */
 	const assignOfficer = async dataToUpload => {
-		console.log("dataToUpload: ", dataToUpload)
+		//console.log("dataToUpload: ", dataToUpload)
 		try {
 			let result = await Axios({
 				method: "PUT",
@@ -44,6 +44,28 @@ export default function IssuesList({ officers }) {
 		}
 	}
 
+	const resolveIssue = async e => {
+		e.preventDefault()
+		let issueId = e.target.dataset.id
+		console.log("issueId: ", issueId)
+
+		try {
+			let result = await Axios({
+				method: "PUT",
+				url: `${baseUrl}/api/v1/issues/change-status/`,
+				data: { issueId: issueId, status: "Resolved" }
+			})
+
+			if (result.data.code == 200) {
+				getData()
+				//e.target.reset() //Resetting the list of Sales Engineer
+			} else {
+				alert("Operation unsuccessful")
+			}
+		} catch (error) {
+			console.log(error)
+		}
+	}
 	const superUserColumns = [
 		{ field: "id", headerName: "#", width: 10 },
 		{
@@ -177,11 +199,18 @@ export default function IssuesList({ officers }) {
 	]
 
 	const officerColumns = [
-		{ field: "issuer", headerName: "Issuer" },
-		{ field: "description", headerName: "Description" },
-		{ field: "createdAt", headerName: "Created At" },
-		{ field: "type", headerName: "Issue Type" },
+		{ field: "id", headerName: "#", width: 10 },
+		{ field: "description", headerName: "Description", width: 250 },
+		{ field: "issuerName", headerName: "Issuer", width: 180 },
 		{
+			field: "createdAt",
+			headerName: "Created At",
+			width: 130,
+			valueGetter: params => `${formatDate(params.row.createdAt)}`
+		},
+		{ field: "type", headerName: "Issue Type", width: 130 },
+		{
+			field: "status",
 			headerName: "Status",
 			sortable: false,
 			width: 100,
@@ -194,10 +223,17 @@ export default function IssuesList({ officers }) {
 							</span>
 						)
 						break
-					case "Resolved":
+					case "RESOLVED":
 						return (
 							<span className="btn btn-sm btn-success">
 								<div> Resolved</div>
+							</span>
+						)
+						break
+					case "Pending":
+						return (
+							<span className="btn btn-sm btn-danger">
+								<div> Pending</div>
 							</span>
 						)
 						break
@@ -209,15 +245,25 @@ export default function IssuesList({ officers }) {
 			headerName: "Action",
 			sortable: false,
 			width: 300,
-			renderCell: () => (
-				<Row>
-					<Col>
-						<span style={{ display: "flex" }}>
-							<i className="bi bi-a-fill text-primary">Resolve</i>
-						</span>
-					</Col>
-				</Row>
-			)
+			renderCell: params => {
+				if (params.row.status != "RESOLVED") {
+					return (
+						<Row>
+							<Col>
+								<button
+									style={{ display: "flex" }}
+									className="btn btn-sm btn-primary"
+									data-id={params.row.id}
+									onClick={resolveIssue}
+								>
+									Resolve
+								</button>
+							</Col>
+						</Row>
+					)
+				} else {
+				}
+			}
 		}
 	]
 
@@ -239,7 +285,7 @@ export default function IssuesList({ officers }) {
 				if (params.row.assignedTo === null) {
 					return `Not Assigned`
 				} else {
-					return params.row.assignedTo
+					return `${params.row.assignedToName}`
 				}
 			}
 		},
@@ -261,6 +307,13 @@ export default function IssuesList({ officers }) {
 						return (
 							<span className="btn btn-sm btn-success">
 								<div> Resolved</div>
+							</span>
+						)
+						break
+					case "Pending":
+						return (
+							<span className="btn btn-sm btn-danger">
+								<div> Pending</div>
 							</span>
 						)
 						break
