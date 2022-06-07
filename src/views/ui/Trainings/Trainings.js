@@ -1,7 +1,7 @@
 import Axios from "axios"
 import React, { useEffect, useState } from "react"
 import { Card, CardBody, CardHeader, Col, Container, Row } from "reactstrap"
-import TrainingCard from "../../components/TrainingCard"
+import TrainingCard from "../../../components/TrainingCard"
 export default function RequestTraining() {
 	const [trainingList, setTrainingList] = useState([])
 	const userObject = JSON.parse(localStorage.getItem("userObject"))
@@ -37,6 +37,7 @@ export default function RequestTraining() {
 		}
 	}
 	const onClick = async e => {
+		let response
 		let dataToUpload = {
 			comment: "Not applicable", //don't leave the comment empty
 			code: e.target.id,
@@ -48,19 +49,26 @@ export default function RequestTraining() {
 				url: `${baseUrl}/api/v1/trainings-requests/add/`,
 				data: dataToUpload
 			})
+			response = result.data.data
 		} catch (error) {
 			console.log(error)
 		}
+		return response
 	}
+
 	const onDelete = async e => {
+		let response
+
 		try {
 			let result = await Axios({
 				method: "POST",
 				url: `${baseUrl}/api/v1/trainings-requests/delete/${e.target.id}`
 			})
+			response = result.data.data
 		} catch (error) {
 			console.log(error)
 		}
+		return response
 	}
 
 	useEffect(() => {

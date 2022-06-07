@@ -1,5 +1,5 @@
 import Axios from "axios"
-import React, { useEffect, useState } from "react"
+import React, { useState, useEffect } from "react"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
@@ -14,10 +14,10 @@ import {
 	Label,
 	Row
 } from "reactstrap"
-import DashboardCards from "../../components/Card"
 import IssuesList from "./IssuesList"
-
+import IssuesStatistics from "./IssuesStatistics"
 const Issues = () => {
+	const [officersList, setofficersList] = useState([])
 	const userObject = JSON.parse(localStorage.getItem("userObject"))
 	const baseUrl = process.env.REACT_APP_SERVER
 
@@ -71,27 +71,39 @@ const Issues = () => {
 
 		handleClose()
 
-		refreshPage()
+		//refreshPage()
 	}
+
+	const getOfficersList = async () => {
+		try {
+			let result = await fetch(
+				`${baseUrl}/api/v1/users/get-users-by-type/officer`,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			)
+			let response = await result.json()
+			console.log(
+				"%cData: ",
+				"background:purple; color:white; border-radius:20px",
+				response
+			)
+			setofficersList(response.data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	const getStatistics = async () => {}
+
+	useEffect(() => {
+		getOfficersList()
+	}, [1])
+
 	return (
 		<>
-			<Container>
-				<Row>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Total Issues" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Pending" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Resolved" text={100} />
-					</Col>
-					<Col className="col-xl-3 col-lg-3 col-md-3 col-sm-6">
-						<DashboardCards title="Rate" text={100} />
-					</Col>
-				</Row>
-			</Container>
-
+			<IssuesStatistics />
 			<Container>
 				<Row className="mb-3">
 					<Col className="col">
@@ -101,30 +113,28 @@ const Issues = () => {
 						>
 							New Issues
 						</Button>{" "}
-						<Button
+						{/* <Button
 							className="btn btn-danger mr-2 mt-2"
-							disabled
 							title="Coming Soon"
 						>
 							Pending Issues
 						</Button>{" "}
 						<Button
-							className="btn btn-secondary mr-2 mt-2"
-							disabled
+							className="btn btn-success mr-2 mt-2"
 							title="Coming Soon"
 						>
 							Resolved Issues
-						</Button>
+						</Button> */}
 					</Col>
 				</Row>
 				<Row>
 					<Col>
 						<Card>
-							<CardHeader style={{backgroundColor:"#1bc5bd"}}>
+							<CardHeader className="bg-success text-white">
 								Pending Issues
 							</CardHeader>
 							<CardBody>
-								<IssuesList />
+								<IssuesList officers={officersList} />
 							</CardBody>
 						</Card>
 					</Col>

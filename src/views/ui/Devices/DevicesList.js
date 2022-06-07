@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react"
+import React, { useEffect, useState, useContext } from "react"
+import { AppContext } from "../../../components/Context/AppContext"
 import { DataGrid } from "@mui/x-data-grid"
 import {
 	user as UserColumns,
@@ -8,12 +9,12 @@ import {
 	superUser as SuperColumns
 } from "./DevicesListColumns"
 
-const userObject = JSON.parse(localStorage.getItem("userObject"))
-const baseUrl = process.env.REACT_APP_SERVER
-
 export default function DataTable() {
 	const [data, setData] = useState([])
 	const [columns, setColumns] = useState([])
+	const context = useContext(AppContext)
+	const userObject = context.user
+	const baseUrl = context.baseUrl
 
 	const getData = async () => {
 		let url
@@ -39,6 +40,7 @@ export default function DataTable() {
 				setColumns(SuperColumns)
 				break
 		}
+
 		try {
 			let result = await fetch(url, {
 				headers: {
@@ -58,8 +60,13 @@ export default function DataTable() {
 	}, [1])
 
 	return (
-		<div style={{ height: 400, width: "100%"}}>
-			<DataGrid rows={data} columns={columns} rowsPerPageOptions={[6]} />
+		<div style={{ height: 400, width: "100%" }}>
+			<DataGrid
+				rows={data}
+				columns={columns}
+				checkboxSelection
+				density="compact"
+			/>
 		</div>
 	)
 }

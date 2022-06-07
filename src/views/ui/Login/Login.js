@@ -13,7 +13,7 @@ import {
 } from "reactstrap"
 import Modal from "react-bootstrap/Modal"
 
-import Logo from "../../assets/images/logos/logo12.jpg"
+import Logo from "../../../assets/images/logos/logo12.jpg"
 import ForgetPassword from "./ForgetPassword"
 export default function Login() {
 	const navigate = useNavigate()
