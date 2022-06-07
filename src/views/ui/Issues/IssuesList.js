@@ -87,22 +87,55 @@ export default function IssuesList({ officers }) {
 					: params.row.assignedByName
 		},
 		{ field: "assignedToName", headerName: "Assigned To" },
-		{ field: "status", headerName: "Status" },
+		{
+			field: "status",
+			headerName: "Status",
+			renderCell: params => {
+				switch (params.row.status.toString()) {
+					case "Unresolved":
+						return (
+							<span className="btn btn-sm btn-danger">
+								<div>Pending</div>
+							</span>
+						)
+						break
+					case "RESOLVED":
+						return (
+							<span className="btn btn-sm btn-success">
+								<div> Resolved</div>
+							</span>
+						)
+						break
+					case "Pending":
+						return (
+							<span className="btn btn-sm btn-danger">
+								<div> Pending</div>
+							</span>
+						)
+						break
+				}
+			}
+		},
 		{
 			headerName: "Action",
 			sortable: false,
 			width: 250,
-			renderCell: params => (
-				<Row>
-					<Col>
-						<SelectOfficers
-							officers={officers}
-							submit={assignOfficer}
-							params={params}
-						/>
-					</Col>
-				</Row>
-			)
+			renderCell: params => {
+				if (params.row.status != "RESOLVED") {
+					return (
+						<Row>
+							<Col>
+								<SelectOfficers
+									officers={officers}
+									submit={assignOfficer}
+									params={params}
+								/>
+							</Col>
+						</Row>
+					)
+				} else {
+				}
+			}
 		}
 	]
 
