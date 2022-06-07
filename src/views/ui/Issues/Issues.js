@@ -1,5 +1,5 @@
 import Axios from "axios"
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import Modal from "react-bootstrap/Modal"
@@ -17,6 +17,7 @@ import {
 import IssuesList from "./IssuesList"
 import IssuesStatistics from "./IssuesStatistics"
 const Issues = () => {
+	const [officersList, setofficersList] = useState([])
 	const userObject = JSON.parse(localStorage.getItem("userObject"))
 	const baseUrl = process.env.REACT_APP_SERVER
 
@@ -72,6 +73,34 @@ const Issues = () => {
 
 		refreshPage()
 	}
+
+	const getOfficersList = async () => {
+		try {
+			let result = await fetch(
+				`${baseUrl}/api/v1/users/get-users-by-type/officer`,
+				{
+					headers: {
+						"Content-Type": "application/json"
+					}
+				}
+			)
+			let response = await result.json()
+			console.log(
+				"%cData: ",
+				"background:purple; color:white; border-radius:20px",
+				response
+			)
+			setofficersList(response.data)
+		} catch (error) {
+			console.log(error)
+		}
+	}
+	const getStatistics = async () => {}
+
+	useEffect(() => {
+		getOfficersList()
+	}, [1])
+
 	return (
 		<>
 			<IssuesStatistics />
@@ -84,7 +113,7 @@ const Issues = () => {
 						>
 							New Issues
 						</Button>{" "}
-						<Button
+						{/* <Button
 							className="btn btn-danger mr-2 mt-2"
 							title="Coming Soon"
 						>
@@ -95,7 +124,7 @@ const Issues = () => {
 							title="Coming Soon"
 						>
 							Resolved Issues
-						</Button>
+						</Button> */}
 					</Col>
 				</Row>
 				<Row>
@@ -105,7 +134,7 @@ const Issues = () => {
 								Pending Issues
 							</CardHeader>
 							<CardBody>
-								<IssuesList />
+								<IssuesList officers={officersList} />
 							</CardBody>
 						</Card>
 					</Col>

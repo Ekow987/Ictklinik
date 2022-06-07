@@ -7,7 +7,7 @@ import Reports from "../views/ui/Reports"
 import Issues from "../views/ui/Issues/Issues"
 
 /****Layouts*****/
-const FullLayout = lazy(() => import("../layouts/FullLayout.js"))
+import FullLayout from "../layouts/FullLayout.js"
 
 /*****Routes******/
 
