@@ -54,10 +54,17 @@ export default function IssuesList({ officers }) {
 		},
 
 		{ field: "description", headerName: "Description", width: 250 },
-		{ field: "user_fullname", headerName: "Issuer", width: 200 },
+		{ field: "issuer", headerName: "Issuer", width: 200 },
 		{ field: "type", headerName: "Issue Type", width: 150 },
-		{ field: "assignedBy", headerName: "Assign By" },
-		{ field: "assignedTo", headerName: "Assigned To" },
+		{
+			field: "assignedBy",
+			headerName: "Assign By",
+			valueGetter: params =>
+				params.row.assignedBy == userObject.staffId
+					? `You`
+					: params.row.assignedByName
+		},
+		{ field: "assignedToName", headerName: "Assigned To" },
 		{ field: "status", headerName: "Status" },
 		{
 			headerName: "Action",
@@ -70,26 +77,7 @@ export default function IssuesList({ officers }) {
 							officers={officers}
 							submit={assignOfficer}
 							params={params}
-							//handleSelect={handleSelect}
 						/>
-						{/* <form onSubmit={assignOfficer} id={params.row.id}>
-							<select
-								name="officer"
-								onChange={handleSelect}
-								data-id={params.row.id}
-								required
-							>
-								<option value="">Select officer</option>
-								{officers.map((value, id) => {
-									return (
-										<option key={id} value={value.staffId}>
-											{value.staffFullname}
-										</option>
-									)
-								})}
-							</select>{" "}
-							<button className="btn-success ml-4">Assign</button>
-						</form> */}
 					</Col>
 				</Row>
 			)
