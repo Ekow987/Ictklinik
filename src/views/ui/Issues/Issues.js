@@ -71,7 +71,7 @@ const Issues = () => {
 
 		handleClose()
 
-		refreshPage()
+		//refreshPage()
 	}
 
 	const getOfficersList = async () => {

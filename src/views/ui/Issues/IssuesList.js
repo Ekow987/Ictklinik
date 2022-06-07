@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext, useMemo } from "react"
 import { AppContext } from "../../../components/Context/AppContext"
 import { DataGrid } from "@mui/x-data-grid"
 import { getUser } from "../../../services/Auth"
@@ -6,6 +6,7 @@ import moment from "moment"
 import { Col } from "react-bootstrap"
 import { Row } from "reactstrap"
 import Axios from "axios"
+import SelectOfficers from "../../../components/SelectOfficers"
 
 const formatDate = (date, full = true) => {
 	return moment(date).format("DD MMM, YYYY")
@@ -14,52 +15,8 @@ const userObject = getUser()
 
 export default function IssuesList({ officers }) {
 	const [data, setData] = useState([])
-	const [assignData, setAssignData] = useState({
-		userId: userObject.staffId,
-		technicianId: "",
-		issueId: ""
-	})
 	const [columns, setColumns] = useState([])
-	const [officersList, setofficersList] = useState([])
 	const baseUrl = process.env.REACT_APP_SERVER
-
-	const getOfficersList = async () => {
-		try {
-			let result = await fetch(
-				`${baseUrl}/api/v1/users/get-users-by-type/officer`,
-				{
-					headers: {
-						"Content-Type": "application/json"
-					}
-				}
-			)
-			let response = await result.json()
-			console.log(
-				"%cData: ",
-				"background:purple; color:white; border-radius:20px",
-				response
-			)
-			setofficersList(response.data)
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	const handleSelect = e => {
-		e.preventDefault()
-		const target = e.target
-		const staffId = target.value
-		console.log("staffId: ", staffId)
-		const issueId = target.dataset.id
-		console.log("issueId: ", issueId)
-
-		setAssignData({
-			...assignData,
-			userId: userObject.staffId,
-			technicianId: staffId,
-			issueId: issueId
-		})
-	}
 
 	/**
 	 * @param {int} id
@@ -67,10 +24,7 @@ export default function IssuesList({ officers }) {
 	 *
 	 * calling the API to reassign issue
 	 */
-	const assignOfficer = async e => {
-		e.preventDefault()
-		console.log(e.target)
-		let dataToUpload = assignData
+	const assignOfficer = async dataToUpload => {
 		console.log("dataToUpload: ", dataToUpload)
 		try {
 			let result = await Axios({
@@ -81,13 +35,7 @@ export default function IssuesList({ officers }) {
 
 			if (result.data.code == 200) {
 				getData()
-				setAssignData({
-					...assignData,
-					userId: userObject.staffId,
-					technicianId: "",
-					issueId: ""
-				})
-				e.target.form.reset() //Resetting the list of Sales Engineer
+				//e.target.reset() //Resetting the list of Sales Engineer
 			} else {
 				alert("Issue could not be assigned")
 			}
@@ -101,9 +49,8 @@ export default function IssuesList({ officers }) {
 		{
 			headerName: "Created At",
 			field: "createdAt",
-			width: 100,
+			width: 110,
 			valueGetter: params => `${formatDate(params.row.createdAt)}`
-			// renderCell: params => formatDate(params.row.createdAt)
 		},
 
 		{ field: "description", headerName: "Description", width: 250 },
@@ -119,31 +66,30 @@ export default function IssuesList({ officers }) {
 			renderCell: params => (
 				<Row>
 					<Col>
-						<span>
-							<form onSubmit={assignOfficer} id={params.row.id}>
-								<select
-									name="officer"
-									onChange={handleSelect}
-									data-id={params.row.id}
-									required
-								>
-									<option value="">Select officer</option>
-									{officersList.map((value, id) => {
-										return (
-											<option
-												key={id}
-												value={value.staffId}
-											>
-												{value.staffFullname}
-											</option>
-										)
-									})}
-								</select>{" "}
-								<button className="btn-success ml-4">
-									Assign
-								</button>
-							</form>
-						</span>
+						<SelectOfficers
+							officers={officers}
+							submit={assignOfficer}
+							params={params}
+							//handleSelect={handleSelect}
+						/>
+						{/* <form onSubmit={assignOfficer} id={params.row.id}>
+							<select
+								name="officer"
+								onChange={handleSelect}
+								data-id={params.row.id}
+								required
+							>
+								<option value="">Select officer</option>
+								{officers.map((value, id) => {
+									return (
+										<option key={id} value={value.staffId}>
+											{value.staffFullname}
+										</option>
+									)
+								})}
+							</select>{" "}
+							<button className="btn-success ml-4">Assign</button>
+						</form> */}
 					</Col>
 				</Row>
 			)
@@ -372,10 +318,10 @@ export default function IssuesList({ officers }) {
 		}
 	}
 
-	useEffect(() => {
-		//getOfficersList()
+	useMemo(() => {
 		getData()
-	}, [1])
+	}, [userObject.staffId])
+
 	return (
 		<div style={{ height: 400, width: "100%" }}>
 			<DataGrid rows={data} columns={columns} density="compact" />
