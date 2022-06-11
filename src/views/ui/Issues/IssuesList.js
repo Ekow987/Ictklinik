@@ -128,7 +128,7 @@ export default function IssuesList({ officers }) {
 								<SelectOfficers
 									officers={officers}
 									submit={assignOfficer}
-									params={params}
+									params={params.row}
 								/>
 							</Col>
 						</Row>

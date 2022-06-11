@@ -7,7 +7,7 @@ export default function SelectOfficers({ officers, submit, params }) {
 		technicianId: "",
 		issueId: ""
 	})
-
+	console.log(params)
 	const handleSelect = e => {
 		e.preventDefault()
 		const target = e.target
@@ -23,14 +23,14 @@ export default function SelectOfficers({ officers, submit, params }) {
 	const onSubmit = (e, data) => {
 		e.preventDefault()
 		submit(assignData)
-		document.getElementById(`${params.row.id}`).reset()
+		document.getElementById(`${params.id}`).reset()
 	}
 	return (
-		<form onSubmit={onSubmit} id={params.row.id}>
+		<form onSubmit={onSubmit} id={params.id}>
 			<select
 				name="officer"
 				onChange={handleSelect}
-				data-id={params.row.id}
+				data-id={params.id}
 				required
 			>
 				<option value="">Select officer</option>

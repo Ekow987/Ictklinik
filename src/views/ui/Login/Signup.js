@@ -6,6 +6,7 @@ import md5 from "md5"
 export default function Signup() {
 	const [show, setShow] = useState(false)
 	const [passwordField, setPasswordField] = useState(false)
+	const [errorField, setErrorField] = useState(false)
 	const handleClose = () => setShow(false)
 	const handleShow = () => setShow(true)
 	const [staffId, setStaffId] = useState("")
@@ -69,6 +70,9 @@ export default function Signup() {
 						setPasswordField(true)
 						setCheckPayload(result.data)
 					}
+					if (result.status === 404) {
+						setErrorField(true)
+					}
 				})
 				.catch(error => console.log("error", error))
 		} catch (error) {
@@ -127,6 +131,12 @@ export default function Signup() {
 
 				<Modal.Body>
 					<>
+						ddd
+						{errorField ? (
+							<span className="bg-danger text-white">
+								No User with saff {staffId} was Found
+							</span>
+						) : null}
 						{passwordField ? (
 							<>
 								<p>{checkPayload.staffId}</p>
