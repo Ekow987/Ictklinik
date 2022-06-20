@@ -125,16 +125,15 @@ export default function IssuesList({ officers }) {
 			renderCell: params => {
 				if (params?.row?.status != "RESOLVED") {
 					return (
-						// <Row>
-						// 	<Col>
-						// 		<SelectOfficers
-						// 			officers={officers}
-						// 			submit={assignOfficer}
-						// 			params={params}
-						// 		/>
-						// 	</Col>
-						// </Row>
-						<AdminModal/>
+						<Row>
+							<Col>
+								<SelectOfficers
+									officers={officers}
+									submit={assignOfficer}
+									params={params.row}
+								/>
+							</Col>
+						</Row>
 					)
 				} else {
 				}
