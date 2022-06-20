@@ -7,6 +7,7 @@ import { Col } from "react-bootstrap"
 import { Row } from "reactstrap"
 import Axios from "axios"
 import SelectOfficers from "../../../components/SelectOfficers"
+import AdminModal from "./AdminModal"
 
 const formatDate = (date, full = true) => {
 	return moment(date).format("DD MMM, YYYY")
@@ -25,6 +26,7 @@ export default function IssuesList({ officers }) {
 	 * calling the API to reassign issue
 	 */
 	const assignOfficer = async dataToUpload => {
+	
 		//console.log("dataToUpload: ", dataToUpload)
 		try {
 			let result = await Axios({
@@ -83,7 +85,7 @@ export default function IssuesList({ officers }) {
 			headerName: "Assign By",
 			valueGetter: params =>
 				params.row.assignedBy == userObject.staffId
-					? `You`
+					? `Nigel`
 					: params.row.assignedByName
 		},
 		{ field: "assignedToName", headerName: "Assigned To" },
@@ -121,23 +123,26 @@ export default function IssuesList({ officers }) {
 			sortable: false,
 			width: 250,
 			renderCell: params => {
-				if (params.row.status != "RESOLVED") {
+				if (params?.row?.status != "RESOLVED") {
 					return (
-						<Row>
-							<Col>
-								<SelectOfficers
-									officers={officers}
-									submit={assignOfficer}
-									params={params}
-								/>
-							</Col>
-						</Row>
+						// <Row>
+						// 	<Col>
+						// 		<SelectOfficers
+						// 			officers={officers}
+						// 			submit={assignOfficer}
+						// 			params={params}
+						// 		/>
+						// 	</Col>
+						// </Row>
+						<AdminModal/>
 					)
 				} else {
 				}
 			}
 		}
 	]
+
+
 
 	const managerColumns = [
 		{ field: "description", headerName: "Description" },
@@ -276,7 +281,7 @@ export default function IssuesList({ officers }) {
 
 		{
 			headerName: "Action",
-			sortable: false,
+			sortable: true,
 			width: 300,
 			renderCell: params => {
 				if (params.row.status != "RESOLVED") {
@@ -339,9 +344,9 @@ export default function IssuesList({ officers }) {
 					case "Resolved":
 						return (
 							<span className="btn btn-sm btn-success">
-								<div> Resolved</div>
+								<div>Resolved</div>
 							</span>
-						)
+						   )
 						break
 					case "Pending":
 						return (

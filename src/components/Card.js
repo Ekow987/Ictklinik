@@ -1,16 +1,20 @@
 import { Card, CardText, CardBody, CardTitle } from "reactstrap"
 
+
 const DashboardCard = ({ title, text }) => {
 	return (
-		<div>
+		<div style={{marginLeft:50}}>
+			
 			<Card
 				style={{
-					backgroundImage: "url(../../assets/images/bg/card-bg.png)"
+					width:270
 				}}
 			>
-				<CardBody>
-					<CardTitle className="fw-bold">{title}</CardTitle>
-					<CardText>{text}</CardText>
+				
+				
+				<CardBody  style={{background: "linear-gradient(#e66465, #9198e5)"}}>
+					<CardTitle className="fw-bold" style={{color:"white"}}>{title}</CardTitle>
+					<CardText style={{color:"white"}}>{text}</CardText>
 				</CardBody>
 			</Card>
 		</div>
