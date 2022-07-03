@@ -1,10 +1,9 @@
-import { lazy } from "react"
-import { Navigate } from "react-router-dom"
 import Login from "../views/ui/Login/Login"
 import Devices from "../views/ui/Devices/Devices"
 import Trainings from "../views/ui/Trainings/Trainings"
 import Reports from "../views/ui/Reports"
 import Issues from "../views/ui/Issues/Issues"
+import { Navigate } from "react-router-dom"
 
 /****Layouts*****/
 import FullLayout from "../layouts/FullLayout.js"

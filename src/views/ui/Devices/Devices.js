@@ -138,7 +138,7 @@ export default function RequestDevices() {
 
 			<Modal show={show} onHide={handleClose}>
 				<Form onSubmit={handleSubmit}>
-					<Modal.Header closeButton>
+					<Modal.Header closeButton className="bg-success text-white">
 						<Modal.Title>Request Device</Modal.Title>
 					</Modal.Header>
 					<Modal.Body>
@@ -185,7 +185,7 @@ export default function RequestDevices() {
 					</Modal.Body>
 					<Modal.Footer>
 						<Button
-							variant="primary"
+							variant=""
 							type="submit"
 							onClick={handleShow}
 						>

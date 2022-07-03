@@ -554,30 +554,28 @@ export default function IssuesList({ officers }) {
 			sortable: false,
 			width: 80,
 			renderCell: params => {
-				if (params.row.status != "RESOLVED") {
+				if (params.row.status != 1) {
 					return (
-						<Row>
-							<Col>
-								{params.row.status.toString() == 1 ? (
-									<button
-										style={{ display: "flex" }}
-										className="btn btn-sm btn-primary"
-										disabled
-									>
-										Closed
-									</button>
-								) : (
-									<button
-										style={{ display: "flex" }}
-										className="btn btn-sm btn-primary"
-										data-id={params.row.id}
-										onClick={handleRevolve}
-									>
-										Diagnose
-									</button>
-								)}
-							</Col>
-						</Row>
+						<Col>
+							{params.row.status.toString() == 1 ? (
+								<button
+									style={{ display: "flex" }}
+									className="btn btn-sm btn-primary"
+									disabled
+								>
+									Closed
+								</button>
+							) : (
+								<button
+									style={{ display: "flex" }}
+									className="btn btn-sm btn-primary"
+									data-id={params.row.id}
+									onClick={handleRevolve}
+								>
+									Diagnose
+								</button>
+							)}
+						</Col>
 					)
 				} else {
 				}

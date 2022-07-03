@@ -7,6 +7,7 @@ export default function SelectOfficers({ officers, submit, params }) {
 		technicianId: "",
 		issueId: ""
 	})
+    console.log(officers)
 	console.log(params)
 	const handleSelect = e => {
 		e.preventDefault()

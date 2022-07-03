@@ -13,6 +13,7 @@ export const clearUser = () => {
 	if (isBrowser()) window.localStorage.clear()
 }
 
+
 export const handleLogin = ({ user }) => {
 	setUser({
 		name: user.displayname,

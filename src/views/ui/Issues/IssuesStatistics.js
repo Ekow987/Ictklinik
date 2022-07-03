@@ -46,3 +46,5 @@ function IssuesStatistics(props) {
 }
 
 export default IssuesStatistics
+
+// col-xl-3
