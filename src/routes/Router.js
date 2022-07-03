@@ -16,7 +16,6 @@ const ThemeRoutes = [
 		path: "/",
 		element: <FullLayout />,
 		children: [
-			// { path: "/", exact: true, element: <Navigate to="/login" /> },
 			{
 				path: "/issues",
 				exact: true,
