@@ -24,3 +24,18 @@ export const officersList = async () => {
 
 	return response
 }
+
+export const getStatistics = async () => {
+	let url = `http://localhost:5000/api/v1/issues/statistics`
+	try {
+		let result = await fetch(url, {
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		const response = await result.json()
+		return response
+	} catch (error) {
+		console.log(error)
+	}
+}

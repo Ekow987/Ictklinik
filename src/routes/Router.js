@@ -3,7 +3,7 @@ import Devices from "../views/ui/Devices/Devices"
 import Trainings from "../views/ui/Trainings/Trainings"
 import Reports from "../views/ui/Reports"
 import Issues from "../views/ui/Issues/Issues"
-import {Navigate} from "react-router-dom"
+import { Navigate } from "react-router-dom"
 
 /****Layouts*****/
 import FullLayout from "../layouts/FullLayout.js"
@@ -15,7 +15,6 @@ const ThemeRoutes = [
 		path: "/",
 		element: <FullLayout />,
 		children: [
-			{ path: "/", exact: true, element: <Navigate to="/login" /> },
 			{
 				path: "/issues",
 				exact: true,
